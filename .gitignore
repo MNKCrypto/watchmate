@@ -1,0 +1,23 @@
+# Secrets — never commit API keys
+.env
+.env.*
+!.env.example
+
+# Video and generated media (large files; footage is credited in README, not redistributed)
+data/
+*.mp4
+*.ts
+*.m3u8
+*.mp3
+*.wav
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
