@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watchmate Control Room</title>
+<style>
+  :root {
+    --bg: #0b0f17; --panel: #121826; --panel-2: #182033; --line: #232c42;
+    --text: #e6eaf2; --muted: #8b95ad; --accent: #5b8cff; --accent-2: #8a6bff;
+    --ok: #34c77b; --warn: #f2b84b; --bad: #ff6b6b; --skip: #7b8499;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+  .app { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  nav { background: var(--panel); border-right: 1px solid var(--line); padding: 20px 14px;
+        display: flex; flex-direction: column; gap: 4px; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 20px; }
+  .logo { width: 32px; height: 32px; border-radius: 9px;
+          background: linear-gradient(135deg, var(--accent), var(--accent-2));
+          display: grid; place-items: center; font-weight: 800; }
+  .brand b { display: block; font-size: 15px; } .brand small { color: var(--muted); font-size: 12px; }
+  nav button { all: unset; cursor: pointer; padding: 10px 12px; border-radius: 8px; color: var(--muted);
+               display: flex; justify-content: space-between; align-items: center; }
+  nav button:hover { background: var(--panel-2); color: var(--text); }
+  nav button.active { background: var(--panel-2); color: var(--text); box-shadow: inset 3px 0 0 var(--accent); }
+  .count { font-size: 12px; background: var(--line); padding: 1px 8px; border-radius: 10px; }
+  .status { margin-top: auto; padding: 12px; border: 1px solid var(--line); border-radius: 10px;
+            font-size: 12px; color: var(--muted); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok);
+         margin-right: 6px; box-shadow: 0 0 0 0 rgba(52,199,123,.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52,199,123,0); } 100% { box-shadow: 0 0 0 0 rgba(52,199,123,0); } }
+  main { padding: 28px 36px; max-width: 1100px; }
+  h1 { font-size: 22px; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 22px; }
+  .page { display: none; } .page.active { display: block; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .card h3 { margin: 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .chip { font-size: 12px; padding: 2px 10px; border-radius: 12px; background: rgba(91,140,255,.14);
+          color: #a9c0ff; border: 1px solid rgba(91,140,255,.3); }
+  .quote { color: var(--muted); font-style: italic; border-left: 2px solid var(--line); padding-left: 10px; margin: 8px 0; }
+  .meta { color: var(--muted); font-size: 12px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+  .b-ok { background: rgba(52,199,123,.15); color: var(--ok); }
+  .b-skip { background: rgba(123,132,153,.18); color: var(--skip); }
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line);
+          border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  tr:last-child td { border-bottom: 0; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--muted); }
+  form.add { display: flex; gap: 10px; margin: 18px 0; flex-wrap: wrap; }
+  input, select { background: var(--panel); border: 1px solid var(--line); color: var(--text);
+                  padding: 9px 12px; border-radius: 8px; font: inherit; }
+  .btn { cursor: pointer; border: 0; padding: 9px 16px; border-radius: 8px; font: inherit; font-weight: 600;
+         background: var(--accent); color: white; }
+  .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--muted); font-weight: 500; }
+  .switch { cursor: pointer; width: 38px; height: 22px; border-radius: 11px; background: var(--line);
+            position: relative; display: inline-block; vertical-align: middle; }
+  .switch.on { background: var(--ok); }
+  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+                   border-radius: 50%; background: white; transition: left .15s; }
+  .switch.on::after { left: 19px; }
+  .feed { display: flex; flex-direction: column; gap: 8px; }
+  .ev { display: grid; grid-template-columns: 92px 28px 1fr; gap: 10px; align-items: start;
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+        animation: in .35s ease; }
+  @keyframes in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .ev .t { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .ev .i { font-size: 16px; line-height: 1.2; }
+  .ev .m b { color: #fff; } .ev .d { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .ev.hl { border-color: rgba(91,140,255,.55); background: linear-gradient(90deg, rgba(91,140,255,.12), var(--panel)); }
+  .ev.ok { box-shadow: inset 3px 0 0 var(--ok); } .ev.skip { box-shadow: inset 3px 0 0 var(--skip); opacity: .9; }
+  .ev.warn { box-shadow: inset 3px 0 0 var(--warn); } .ev.bad { box-shadow: inset 3px 0 0 var(--bad); }
+  .bar { height: 6px; background: var(--line); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .bar > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .4s; }
+  .empty { color: var(--muted); padding: 30px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav>
+    <div class="brand"><div class="logo">W</div><div><b>Watchmate</b><small>Control Room</small></div></div>
+    <button data-page="feed" class="active">Live feed <span class="count" id="c-feed">0</span></button>
+    <button data-page="subs">Subscribers <span class="count" id="c-subs">0</span></button>
+    <button data-page="sources">Sources <span class="count" id="c-sources">0</span></button>
+    <div class="status"><span class="dot"></span>Agent online<br><span id="watching">Monitoring sources</span></div>
+  </nav>
+  <main>
+    <section class="page active" id="feed">
+      <h1>Live feed</h1>
+      <p class="sub">Everything the agent decides, as it happens: new videos, watching, matching, self-checks, deliveries.</p>
+      <div class="toolbar"><span class="mono" id="feed-note"></span>
+        <button class="btn ghost" id="clear">Clear view</button></div>
+      <div class="feed" id="events"><div class="empty">Waiting for activity…</div></div>
+    </section>
+
+    <section class="page" id="subs">
+      <h1>Subscribers</h1>
+      <p class="sub">People who told Watchmate what they're into, in their own words, on Telegram.</p>
+      <div class="grid" id="sub-list"></div>
+    </section>
+
+    <section class="page" id="sources">
+      <h1>Sources</h1>
+      <p class="sub">Video sources the agent monitors. When a source publishes a new video, Watchmate watches it and serves every matching subscriber.</p>
+      <form class="add" id="add-source">
+        <input name="name" placeholder="Source name, e.g. NASA" required>
+        <input name="category" placeholder="Category, e.g. space" required>
+        <select name="type">
+          <option value="folder">Watched folder (demo feed)</option>
+          <option disabled>Broadcaster API (coming soon)</option>
+          <option disabled>RSS / channel feed (coming soon)</option>
+        </select>
+        <button class="btn" type="submit">Add source</button>
+      </form>
+      <table><thead><tr><th>Source</th><th>Category</th><th>Type</th><th>Watching</th><th></th></tr></thead>
+        <tbody id="source-list"></tbody></table>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const time = (ts) => new Date(ts * 1000).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit", second: "2-digit"});
+const api = (url, opts) => fetch(url, opts).then((r) => r.json());
+
+document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
+  document.querySelectorAll("nav button, .page").forEach((x) => x.classList.remove("active"));
+  b.classList.add("active"); $("#" + b.dataset.page).classList.add("active");
+});
+
+/* ---------- live feed ---------- */
+let since = 0, shown = 0, clearedAt = 0;
+const progressRows = {};
+
+function describe(e) {
+  const k = e.kind;
+  if (k === "watcher") return ["👁", "Watcher started — monitoring all active sources", "", ""];
+  if (k === "new_video") return ["🆕", `New video on <b>${esc(e.source)}</b> · ${esc(e.category)}`,
+    `${esc(e.file)} — let me watch it and serve every subscriber who cares about ${esc(e.category)}.`, "hl"];
+  if (k === "step" && e.step === "chunk" && e.status === "done")
+    return ["✂️", `Split into <b>${e.segments}</b> six-second segments`, `${e.minutes} minutes of video`, ""];
+  if (k === "step" && e.step === "watch" && e.status === "started")
+    return ["👀", `Muse Spark is watching every segment — video and audio`, `0 / ${e.total}`, "", "progress"];
+  if (k === "step" && e.step === "watch" && e.status === "done")
+    return ["👀", `Watched all <b>${e.total}</b> segments`, "", "ok"];
+  if (k === "step" && e.step === "timeline" && e.status === "started")
+    return ["🧭", "Reading the whole broadcast at once to find the moments", "", ""];
+  if (k === "step" && e.step === "timeline" && e.status === "done")
+    return ["🧭", `<b>${e.moments}</b> moments found in “${esc(e.title)}”`,
+      (e.highlights || []).map((h) => `<span class="chip">${esc(h)}</span>`).join(" "), "ok"];
+  if (k === "broadcast") return ["📡", `Serving <b>${e.subscribers}</b> subscriber${e.subscribers === 1 ? "" : "s"}` +
+    (e.category ? ` · checking who cares about ${esc(e.category)}` : ""), esc(e.title), ""];
+  if (k === "match") return e.relevant
+    ? ["🎯", `<b>${esc(e.user)}</b> matched`, esc(e.reason), "ok"]
+    : ["⏭", `<b>${esc(e.user)}</b> skipped`, esc(e.reason), "skip"];
+  if (k === "verify") {
+    if (e.verdict === "fail") return ["✗", `Self-check rejected “${esc(e.clip)}” for ${esc(e.user)}`,
+      `${esc(e.issue)} ${e.action ? "→ " + esc(e.action) : ""}`, "bad"];
+    if (e.verdict === "retitle") return ["✎", `Self-check corrected a caption for ${esc(e.user)}`,
+      `“${esc(e.clip)}” ${e.action ? "→ " + esc(e.action) : ""}`, "warn"];
+    return ["✓", `Verified “${esc(e.clip)}” for ${esc(e.user)}`, esc(e.shows), "ok"];
+  }
+  if (k === "delivered") return ["📨", `Delivered to <b>${esc(e.user)}</b> on Telegram` + (e.rebuild ? " (rebuilt on request)" : ""),
+    `${e.clips} clip${e.clips === 1 ? "" : "s"}, ${Math.round(e.seconds)}s — “${esc(e.recap)}”`, "ok"];
+  if (k === "step" && e.step === "serve") return ["✅", `Finished serving ${esc(e.source)}: ${esc(e.video_id)}`, "", "ok"];
+  if (k === "onboarded") return ["👋", `New subscriber <b>${esc(e.user)}</b>`,
+    (e.interests || []).map((i) => `<span class="chip">${esc(i)}</span>`).join(" "), "hl"];
+  if (k === "followup") return ["💬", `<b>${esc(e.user)}</b> asked: “${esc(e.question)}”`,
+    `→ ${esc(e.type)}: ${esc(e.reply)}`, ""];
+  if (k === "delivery_failed" || k === "error") return ["⚠️", "Something went wrong", esc(e.error), "bad"];
+  return null;
+}
+
+function render(e) {
+  if (e.kind === "step" && e.step === "watch" && e.status === "progress") {
+    const row = progressRows[e.video_id];
+    if (row) {
+      row.querySelector(".bar > div").style.width = `${(100 * e.done / e.total).toFixed(1)}%`;
+      row.querySelector(".d").textContent = `${e.done} / ${e.total} segments`;
+    }
+    return;
+  }
+  const d = describe(e); if (!d) return;
+  const [icon, msg, detail, cls, extra] = d;
+  const el = document.createElement("div");
+  el.className = "ev " + (cls || "");
+  el.innerHTML = `<div class="t">${time(e.ts)}</div><div class="i">${icon}</div>
+    <div class="m">${msg}<div class="d">${detail}</div>${extra === "progress" ? '<div class="bar"><div style="width:0"></div></div>' : ""}</div>`;
+  if (extra === "progress") progressRows[e.video_id] = el;
+  if (e.kind === "step" && e.step === "watch" && e.status === "done" && progressRows[e.video_id]) {
+    progressRows[e.video_id].querySelector(".bar > div").style.width = "100%";
+    progressRows[e.video_id].querySelector(".d").textContent = `${e.total} / ${e.total} segments`;
+  }
+  const list = $("#events");
+  if (!shown) list.innerHTML = "";
+  list.prepend(el); shown++;
+  $("#c-feed").textContent = shown;
+}
+
+async function pollEvents() {
+  try {
+    const events = await api(`/api/events?since=${since}`);
+    for (const e of events) { since = Math.max(since, e.ts); if (e.ts > clearedAt) render(e); }
+  } catch (_) {}
+}
+$("#clear").onclick = () => { clearedAt = since; shown = 0; $("#events").innerHTML = '<div class="empty">Waiting for activity…</div>'; $("#c-feed").textContent = 0; };
+
+/* ---------- subscribers ---------- */
+async function loadSubs() {
+  const subs = await api("/api/subscribers");
+  $("#c-subs").textContent = subs.length;
+  $("#sub-list").innerHTML = subs.length ? subs.map((s) => `
+    <div class="card">
+      <h3>${esc(s.name)} <span class="badge ${s.state === "ready" ? "b-ok" : "b-skip"}">${s.state === "ready" ? "Active" : "Onboarding"}</span></h3>
+      <div class="chips">${s.interests.map((i) => `<span class="chip">${esc(i)}</span>`).join("")}</div>
+      ${s.preferences ? `<div class="quote">“${esc(s.preferences)}”</div>` : ""}
+      <div class="meta"><span>⏱ ${s.max_seconds ? s.max_seconds + "s reels" : "—"}</span>
+        <span>📨 ${s.last_reel ? "Reel delivered" : "No reel yet"}</span><span>Telegram</span></div>
+    </div>`).join("") : '<div class="empty">No subscribers yet — send /start to the bot.</div>';
+}
+
+/* ---------- sources ---------- */
+async function loadSources() {
+  const src = await api("/api/sources");
+  $("#c-sources").textContent = src.length;
+  $("#watching").textContent = `Monitoring ${src.filter((s) => s.active).length} source${src.length === 1 ? "" : "s"}`;
+  $("#source-list").innerHTML = src.map((s) => `
+    <tr><td><b>${esc(s.name)}</b></td><td><span class="chip">${esc(s.category)}</span></td>
+      <td>Watched folder (demo feed)<div class="mono">${esc(s.folder)}/</div></td>
+      <td><span class="switch ${s.active ? "on" : ""}" data-id="${esc(s.id)}" data-active="${s.active}"></span></td>
+      <td><button class="btn ghost" data-remove="${esc(s.id)}">Remove</button></td></tr>`).join("");
+  document.querySelectorAll(".switch").forEach((sw) => sw.onclick = async () => {
+    await api(`/api/sources/${sw.dataset.id}/toggle`, {method: "POST", body: JSON.stringify({active: sw.dataset.active !== "true"})});
+    loadSources();
+  });
+  document.querySelectorAll("[data-remove]").forEach((b) => b.onclick = async () => {
+    await api(`/api/sources/${b.dataset.remove}`, {method: "DELETE"}); loadSources();
+  });
+}
+$("#add-source").onsubmit = async (ev) => {
+  ev.preventDefault();
+  const f = new FormData(ev.target);
+  await api("/api/sources", {method: "POST", body: JSON.stringify({name: f.get("name"), category: f.get("category")})});
+  ev.target.reset(); loadSources();
+};
+
+pollEvents(); loadSubs(); loadSources();
+setInterval(pollEvents, 1500); setInterval(loadSubs, 4000); setInterval(loadSources, 6000);
+</script>
+</body>
+</html>

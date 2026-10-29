@@ -34,14 +34,17 @@ SEGMENT OBSERVATIONS (idx | time | event | footage | excitement | key | on-scree
 USER: {question}
 
 Decide how to respond:
-- "answer": a question you can answer in words.
-- "clip": they want to SEE something (or it is best shown) -> pick 2-5 segments that show it.
+- "clip": the question is about something that HAPPENED in the broadcast (an event, a moment, a reaction,
+  "what happened after...", "show me...", "how did ... look") -> answer in words AND pick 2-5 segments
+  that show it, preferring live footage. This is the default for questions about moments.
+- "answer": only for questions that can't be shown (facts, explanations, "why", "how fast", opinions),
+  or when the broadcast has no footage of it.
 - "rebuild": they want the reel changed in length (e.g. "make it 30 seconds", "longer version").
 Base everything on the observations; if the broadcast doesn't contain it, say so honestly.
 
 Return ONLY JSON:
 {{"type": "answer" | "clip" | "rebuild",
-  "text": "your reply, friendly, max 70 words, no markdown",
+  "text": "your reply, friendly, max 70 words, no markdown; if you attach a clip, end with a short lead-in like 'Here it is:'",
   "clip": {{"start_seg": <idx>, "end_seg": <idx>, "title": "short caption"}} or null,
   "max_seconds": <new reel length if rebuild, else null>}}"""
 

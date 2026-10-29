@@ -6,6 +6,7 @@ from common.muse import get_client, parse_json
 
 PROMPT = """A new broadcast has just been watched and broken into moments:
 TITLE: {title}
+SOURCE CATEGORY: {category}
 MOMENTS:
 {moments}
 
@@ -18,13 +19,13 @@ not by whether the broadcast is generally exciting. Return ONLY JSON:
 {{"relevant": true or false, "score": 0-1, "reason": "one short sentence citing their interest and the broadcast"}}"""
 
 
-def match(timeline: dict, sub: dict) -> dict:
+def match(timeline: dict, sub: dict, category: str = "") -> dict:
     moments = "\n".join(f"- {m['title']}: {m.get('summary', '')}" for m in timeline["moments"])
     p = sub["profile"]
     resp = get_client().responses.create(
         model="muse-spark-1.3",
         input=[{"role": "user", "content": [{"type": "input_text", "text": PROMPT.format(
-            title=timeline.get("title", ""), moments=moments,
+            title=timeline.get("title", ""), category=category or "unknown", moments=moments,
             interests=", ".join(p.get("interests", [])), preferences=p["preferences"])}]}],
         reasoning={"effort": "low"},
         max_output_tokens=2000,

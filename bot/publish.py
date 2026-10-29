@@ -22,17 +22,17 @@ from messaging.telegram import TelegramError, send_text
 from scripts.send_reel import deliver
 
 
-def publish(video_dir: Path) -> None:
+def publish(video_dir: Path, source: str = "", category: str = "") -> None:
     timeline = json.loads((video_dir / "timeline.json").read_text())
     title = timeline.get("title", video_dir.name)
     subs = [s for s in store.load().values() if s.get("state") == "ready" and store.allowed(s["chat_id"])]
     log_event("broadcast", video_id=video_dir.name, title=title, moments=len(timeline["moments"]),
-              subscribers=len(subs))
+              subscribers=len(subs), source=source, category=category)
     print(f"📡 {title}: {len(timeline['moments'])} moments, {len(subs)} subscribers")
 
     for sub in subs:
         who = sub.get("first_name") or sub["chat_id"]
-        m = match(timeline, sub)
+        m = match(timeline, sub, category)
         log_event("match", chat_id=sub["chat_id"], user=who, **m)
         if not m["relevant"]:
             print(f"  ⏭  {who}: skipped — {m['reason']}")
@@ -63,8 +63,10 @@ def publish(video_dir: Path) -> None:
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--video-dir", type=Path, default=Path("data/processed/artemis_demo"))
+    p.add_argument("--source", default="", help="source name, e.g. NASA (shown in the live feed)")
+    p.add_argument("--category", default="", help="source category, e.g. space (a hint for matching)")
     args = p.parse_args()
-    publish(args.video_dir)
+    publish(args.video_dir, args.source, args.category)
 
 
 if __name__ == "__main__":

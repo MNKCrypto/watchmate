@@ -25,9 +25,9 @@ def format_messages(reel: dict) -> tuple[str, str, str]:
     return intro, caption, recap
 
 
-def deliver(chat_id: int | str, reel: dict, mp4: Path) -> None:
-    intro, caption, recap = format_messages(reel)
-    send_text(chat_id, intro)
+def deliver(chat_id: int | str, reel: dict, mp4: Path, intro: str | None = None) -> None:
+    default_intro, caption, recap = format_messages(reel)
+    send_text(chat_id, intro or default_intro)
     send_typing(chat_id, "upload_video")
     send_video(chat_id, mp4, caption)
     send_text(chat_id, recap)

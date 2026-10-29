@@ -18,11 +18,11 @@ Running log of what was built during the hackathon, and what's next. Each new wo
 - [x] `agent.curate.build_reel()` = pick → enforce → verify → recap (≤ 60 words, rewritten after any change) → playlist + MP4
 - [x] Results: engineer 6 clips / 120s, all milestones; casual fan 3 clips / 60s. Self-check caught a "crowd cheering" clip that was really studio + animation
 - [x] `messaging/telegram.py` + `scripts/send_reel.py` — first personalised reel delivered to a phone via Telegram
-- [ ] `bot/` — Telegram agent: conversational onboarding (Muse Spark → profile), matching (who cares about a new broadcast, with reasons), delivery, follow-ups (answer / clip / rebuild), `data/events.jsonl` decision log
+- [x] `bot/` — Telegram agent: conversational onboarding (Muse Spark → profile), matching (who cares about a new broadcast, with reasons), delivery, follow-ups (answer / clip / rebuild), `data/events.jsonl` decision log
 
 ## Next (build until Sunday Nov 1; record Monday; submit Tuesday)
 
-- Control-room page: timeline, matches, self-check ✓/✎/✗
+- [ ] `control/` — Control Room (`python -m control.server`, http://localhost:8000): Subscribers · Sources (watched folders, demo feed) · Live feed. Watcher agent runs the full pipeline when a source gets a new video
 - Extras if time: SAM 3.1 vertical crop, Muse Image covers, Spark Open on partner inference
 
 ## Demo story (decided)

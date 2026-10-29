@@ -60,7 +60,9 @@ def follow_up(chat_id: str, sub: dict, text: str) -> None:
         profile = {**store.profile_for(sub), "max_seconds": seconds}
         send_typing(chat_id, "upload_video")
         reel = build_reel(profile, Path(r["video_dir"]), log=lambda line: print(f"     {line}"))
-        deliver(chat_id, reel, Path(reel["mp4"]))
+        deliver(chat_id, reel, Path(reel["mp4"]),
+                intro=f"🎬 Here's your {reel['total_seconds']:.0f}-second version: {len(reel['clips'])} "
+                      f"moment{'s' if len(reel['clips']) != 1 else ''}.")
         log_event("delivered", chat_id=chat_id, user=sub.get("first_name"), clips=len(reel["clips"]),
                   seconds=reel["total_seconds"], recap=reel["recap"], rebuild=True)
 
