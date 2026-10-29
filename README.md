@@ -39,7 +39,7 @@ Requirements: Python 3.10+, `ffmpeg`.
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env            # add your META_API_KEY
+cp .env.example .env            # add your MODEL_API_KEY
 
 # Step 1 — split a video into segments
 python -m ingest.chunk data/raw/artemis_demo.mp4
