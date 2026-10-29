@@ -21,3 +21,6 @@ __pycache__/
 .vscode/
 .idea/
 .DS_Store
+
+# Files saved by the Claude app (previews, not project files)
+Claude outputs/

@@ -23,15 +23,15 @@ Running log of what was built during the hackathon, and what's next. Each new wo
 ## Next (build until Sunday Nov 1; record Monday; submit Tuesday)
 
 - [x] `control/` — Control Room (`python -m control.server`, http://localhost:8000): Subscribers · Sources (watched folders, demo feed) · Live feed. Watcher agent runs the full pipeline when a source gets a new video
-- [ ] `agent/cover.py` — Muse Image cover art per reel (sent as a photo with the intro)
-- [ ] `agent/vertical.py` — SAM 3.1 tracks each clip's subject; ffmpeg pans a 9:16 window along the smoothed path → `reel_vertical.mp4` (sent on Telegram)
-- [ ] README: architecture, how to run, Meta models, built-during-hackathon, credits, vision (platforms, contextual consent-based sponsorships)
+- [x] `agent/cover.py` — Muse Image cover art per reel (sent as a photo with the intro)
+- [x] `agent/vertical.py` — SAM 3.1 tracks each clip's subject; ffmpeg pans a 9:16 window along the smoothed path → `reel_vertical.mp4` (sent on Telegram)
+- [x] README: architecture, how to run, Meta models, built-during-hackathon, credits, vision (platforms, contextual consent-based sponsorships)
 - [ ] Second subscriber (current affairs / climate) + This Week @NASA bulletin as a second source
 - Optional: Spark Open on partner inference (needs Baseten/Modal credits)
 
 ## Demo story (decided)
 
-Telegram onboarding (user mentions "space technology") → Artemis full broadcast (5h+) → control room shows the agent's work (timeline, matching, self-check) → reel + recap already waiting in Telegram → follow-up question in chat. Second user (cricket only) is skipped by the agent.
+Telegram onboarding (user mentions "space technology") → Artemis full broadcast (5h+) → control room shows the agent's work (timeline, matching, self-check) → reel + recap already waiting in Telegram → follow-up question in chat. Second user (current affairs / climate) gets only the climate story from a news bulletin, and is skipped for the launch.
 
 ## Decisions
 
