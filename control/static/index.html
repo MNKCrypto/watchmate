@@ -166,6 +166,12 @@ function describe(e) {
       `“${esc(e.clip)}” ${e.action ? "→ " + esc(e.action) : ""}`, "warn"];
     return ["✓", `Verified “${esc(e.clip)}” for ${esc(e.user)}`, esc(e.shows), "ok"];
   }
+  if (k === "cover") return ["🎨", `Muse Image painted cover art for ${esc(e.user)}'s reel`, "", ""];
+  if (k === "track") return e.mode === "fit"
+    ? ["📱", `Phone version: kept the full frame for “${esc(e.clip)}”`,
+       `SAM 3.1 couldn't lock onto a subject (${Math.round(100 * e.coverage)}% of frames), so nothing is cropped away`, "warn"]
+    : ["📱", `SAM 3.1 tracked “${esc(e.subject)}” for the phone version`,
+       `${esc(e.clip)} — found in ${Math.round(100 * e.coverage)}% of frames, the 9:16 frame follows it`, "ok"];
   if (k === "delivered") return ["📨", `Delivered to <b>${esc(e.user)}</b> on Telegram` + (e.rebuild ? " (rebuilt on request)" : ""),
     `${e.clips} clip${e.clips === 1 ? "" : "s"}, ${Math.round(e.seconds)}s — “${esc(e.recap)}”`, "ok"];
   if (k === "step" && e.step === "serve") return ["✅", `Finished serving ${esc(e.source)}: ${esc(e.video_id)}`, "", "ok"];

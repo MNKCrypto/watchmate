@@ -47,6 +47,10 @@ def publish(video_dir: Path, source: str = "", category: str = "") -> None:
             log_event("verify", chat_id=sub["chat_id"], user=who, clip=v.get("clip"),
                       verdict=v.get("verdict"), shows=v.get("shows", ""), issue=v.get("issue", ""),
                       action=v.get("action", ""))
+        if reel.get("cover"):
+            log_event("cover", chat_id=sub["chat_id"], user=who, model="muse-image-1.0")
+        for t in reel.get("tracking", []):
+            log_event("track", chat_id=sub["chat_id"], user=who, model="sam-3.1", **t)
         reel_path = Path("data/reels") / reel["video_id"] / store.profile_for(sub)["name"] / "reel.json"
         try:
             deliver(sub["chat_id"], reel, Path(reel["mp4"]))

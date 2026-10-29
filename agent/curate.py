@@ -48,6 +48,8 @@ Pick the clips this fan would want. Rules:
 - Each clip should start at its build-up and end after the action, so it feels complete.
   The single biggest payoff for this fan (e.g. a liftoff, a goal) deserves 3-5 segments including its build-up.
 - Captions must describe only what the clip itself shows — don't promise an event that happens after the clip ends.
+- Tone: plain and specific, matched to the fan — precise terms for a technical fan, simple words for a casual one.
+  Captions are short factual labels (max 7 words), never poetic ("Booster separation", not "Boosters fall like comets").
 - Cover the variety of things the fan asked for; don't spend most of the budget on one moment.
 - Stay within the time budget. Fewer great clips beat many average ones.
 - Give each clip a priority: 1 = must-have, 2 = strong, 3 = nice-to-have.
@@ -58,9 +60,11 @@ Return ONLY JSON:
 {{
   "clips": [
     {{"start_seg": <idx>, "end_seg": <idx>, "priority": 1|2|3, "title": "short caption shown on the clip",
+      "subject": "1-2 word everyday noun for the main thing VISIBLE on screen to keep in frame (an object detector will search for it): e.g. 'rocket', 'person', 'screen' — not a description, not the camera",
+      "subject_alternates": ["2 other short nouns for what is actually visible if the subject itself isn't, e.g. at night a launch may show only 'exhaust plume', 'flame'"],
       "reason": "why this fan wants it, citing the evidence"}}
   ],
-  "recap": "2-3 short sentences (max 60 words) written to the fan in second person; warm, no quotes, no jargon lists"
+  "recap": "2-3 short sentences (max 60 words) to the fan in second person; plain and specific, no quotes, no jargon lists, no metaphors or personification"
 }}"""
 
 RECAP_PROMPT = """Write a short personal recap for a fan, to send on WhatsApp.
@@ -69,8 +73,9 @@ Fan preferences: {preferences}
 Their reel contains ONLY these clips, in order:
 {clips}
 
-Style: 2-3 short sentences, at most 60 words, warm and natural, second person ("you").
-No quotes from the commentary, no lists of technical terms, no emojis.
+Style: 2-3 short sentences, at most 60 words, friendly and plain, second person ("you").
+Match the fan: precise terms for a technical fan, simple words for a casual one.
+No quotes from the commentary, no lists of technical terms, no emojis, no metaphors or personification.
 Mention only what the captions describe (e.g. if a caption says people are recalling
 something, don't say the fan saw it). Return ONLY the recap text."""
 
@@ -169,7 +174,7 @@ def export_mp4(playlist: Path) -> Path:
 
 def build_reel(profile: dict, video_dir: Path, model: str = "muse-spark-1.3",
                reasoning_effort: str = "medium", pad: int = 0, verify: bool = True,
-               export: bool = True, log=print) -> dict:
+               export: bool = True, cover: bool = True, vertical: bool = True, log=print) -> dict:
     """Full agent flow for one fan: pick clips -> enforce rules -> self-check -> write reel."""
     from agent.verify import verify_clips  # local import: verify imports timeline helpers too
 
@@ -229,6 +234,20 @@ def build_reel(profile: dict, video_dir: Path, model: str = "muse-spark-1.3",
             "playlist": str(playlist), "seconds_taken": round(time.time() - t0, 1)}
     if export and clips:
         reel["mp4"] = str(export_mp4(playlist))
+    if cover and clips:
+        from agent.cover import generate_cover
+        try:
+            reel["cover"] = str(generate_cover(reel, out_dir / "cover.jpg"))
+            log("🎨 Muse Image generated the cover art")
+        except Exception as e:  # extras never block delivery
+            log(f"cover skipped: {e}")
+    if vertical and export and clips:
+        from agent.vertical import make_vertical
+        try:
+            path, tracking = make_vertical(reel, video_dir, manifest, out_dir / "reel_vertical.mp4", log=log)
+            reel["vertical_mp4"], reel["tracking"] = str(path), tracking
+        except Exception as e:
+            log(f"vertical version skipped: {e}")
     (out_dir / "reel.json").write_text(json.dumps(reel, indent=2))
     return reel
 
@@ -241,12 +260,15 @@ def main() -> None:
     p.add_argument("--reasoning-effort", default="medium", choices=["minimal", "low", "medium", "high"])
     p.add_argument("--no-verify", action="store_true", help="skip the self-check")
     p.add_argument("--no-mp4", action="store_true", help="don't export reel.mp4")
+    p.add_argument("--no-cover", action="store_true", help="skip Muse Image cover art")
+    p.add_argument("--no-vertical", action="store_true", help="skip the SAM 3.1 9:16 phone version")
     p.add_argument("--pad", type=int, default=0, help="extra segments added before/after each clip")
     args = p.parse_args()
 
     profile = json.loads(args.profile.read_text())
     reel = build_reel(profile, args.video_dir, args.model, args.reasoning_effort, args.pad,
-                      verify=not args.no_verify, export=not args.no_mp4)
+                      verify=not args.no_verify, export=not args.no_mp4,
+                      cover=not args.no_cover, vertical=not args.no_vertical)
 
     print()
     for c in reel["clips"]:
@@ -261,6 +283,10 @@ def main() -> None:
     print(f"Playlist -> {reel['playlist']}")
     if reel.get("mp4"):
         print(f"MP4      -> {reel['mp4']}")
+    if reel.get("vertical_mp4"):
+        print(f"Vertical -> {reel['vertical_mp4']}")
+    if reel.get("cover"):
+        print(f"Cover    -> {reel['cover']}")
 
 
 if __name__ == "__main__":

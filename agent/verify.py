@@ -47,7 +47,7 @@ Return ONLY JSON:
   "footage": "live | animation | studio | graphic | mixed",
   "hard_rule_broken": "the hard rule it breaks, or ''",
   "verdict": "pass" | "retitle" | "fail",
-  "new_title": "corrected caption, max 8 words, if verdict is retitle, else ''",
+  "new_title": "corrected caption: plain factual label, max 7 words, if verdict is retitle, else ''",
   "issue": "if retitle or fail, the specific problem; else ''",
   "note": "optional: a soft wish it doesn't fully meet (e.g. animation for a fan who prefers live)",
   "confidence": 0-1

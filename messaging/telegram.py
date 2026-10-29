@@ -60,6 +60,12 @@ def send_video(chat_id: int | str, path: Path, caption: str = "") -> dict:
                      files={"video": (path.name, f, "video/mp4")})
 
 
+def send_photo(chat_id: int | str, path: Path, caption: str = "") -> dict:
+    with path.open("rb") as f:
+        return _call("sendPhoto", timeout=60, data={"chat_id": chat_id, "caption": caption[:1024]},
+                     files={"photo": (path.name, f, "image/jpeg")})
+
+
 def send_typing(chat_id: int | str, action: str = "typing") -> None:
     """Show 'typing…' / 'sending video…' in the chat while we work."""
     try:
