@@ -27,17 +27,29 @@ idx | time | event | footage | excitement(0-10) | key | on-screen text | speech 
 
 Group consecutive segments into MOMENTS a viewer would recognise (e.g. "Final countdown",
 "Engine ignition and liftoff", "Booster separation (animation)", "Launch director's speech").
+First decide what kind of broadcast this is:
+- EVENT coverage (a launch, a match, a ceremony): moments follow what HAPPENS.
+- TALK coverage (a news conference, briefing, interview, panel, speech): moments follow what is SAID.
+
 Rules:
 - Every segment belongs to exactly one moment; moments are in time order and do not overlap.
 - Split when what is happening changes; merge long uneventful stretches into one moment.
-- A key action plus its immediate build-up/aftermath (e.g. ignition -> liftoff -> clearing the tower) is ONE moment.
+- EVENT coverage: a key action plus its immediate build-up/aftermath (e.g. ignition -> liftoff -> clearing
+  the tower) is ONE moment.
+- TALK coverage: split by TOPIC, not by speaker. Each announcement, decision, date, result or distinct
+  question is its own moment (typically 30 s to 3 min), even when the same person keeps talking.
+  Title it with the news itself, e.g. "Artemis III becomes a 2027 Earth-orbit test", not "Administrator speaks".
+  Rate "excitement" by newsworthiness: a new date or decision is high, pleasantries and housekeeping are low.
+  Use type "announcement", "result", "explainer", "q&a", "opening" or "politics/budget" so viewers can filter.
 - Keep "footage" honest: live footage vs animation vs studio matters to viewers.
 - Base everything on the observations; do not invent events.
-- Also choose the single most important ANCHOR event of the broadcast (e.g. liftoff, kick-off), if any.
+- ANCHOR: the single physical event the broadcast builds up to (liftoff, kick-off, touchdown), if there is one.
+  For TALK coverage there usually is none: return null.
 
 Return ONLY JSON:
 {{
   "title": "short title for the whole broadcast",
+  "kind": "event" | "talk",
   "anchor": {{"label": "e.g. liftoff", "segment": <idx where it happens>}} or null,
   "moments": [
     {{
@@ -149,6 +161,7 @@ def main() -> None:
     timeline = {
         "video_id": manifest["video_id"],
         "title": data.get("title", manifest["video_id"]),
+        "kind": data.get("kind", "event"),
         "anchor": anchor,
         "model": args.model,
         "moments": moments,
@@ -158,7 +171,7 @@ def main() -> None:
 
     u = resp.usage
     print(f"Done in {time.time() - t0:.0f}s | tokens {u.input_tokens / 1000:.1f}K in / {u.output_tokens / 1000:.1f}K out")
-    print(f"\n{timeline['title']}  —  {len(moments)} moments"
+    print(f"\n{timeline['title']}  ({timeline['kind']})  —  {len(moments)} moments"
           + (f", anchor: {anchor['label']} at {fmt_time(anchor['time'])}" if anchor else ""))
     for m in moments:
         rel = f"T{m['t_rel']:+.0f}s" if "t_rel" in m else ""
