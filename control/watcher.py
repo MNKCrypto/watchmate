@@ -37,7 +37,8 @@ def _mark_seen(key: str) -> None:
 
 def _run(args: list[str], on_line=None) -> None:
     """Run a pipeline step as a subprocess, streaming its output."""
-    proc = subprocess.Popen([sys.executable, "-m", *args], stdout=subprocess.PIPE,
+    # -u: unbuffered, so progress lines (and the live-feed progress bar) arrive as they happen
+    proc = subprocess.Popen([sys.executable, "-u", "-m", *args], stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT, text=True, bufsize=1)
     for line in proc.stdout:
         print(f"    {line.rstrip()}")

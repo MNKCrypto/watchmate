@@ -10,7 +10,7 @@ padding, no overlaps, time budget) and writes:
     data/reels/<video_id>/<profile>/reel.mp4         single file for any player (and WhatsApp)
 
 Usage:
-    python -m agent.curate --profile profiles/engineer.json            # picks, self-checks, exports reel.mp4
+    python -m agent.curate --profile profiles/engineer.json            # picks, self-checks, exports reel.mp4 + cover
     python -m agent.curate --profile profiles/casual_fan.json --no-verify
 """
 
@@ -174,7 +174,7 @@ def export_mp4(playlist: Path) -> Path:
 
 def build_reel(profile: dict, video_dir: Path, model: str = "muse-spark-1.3",
                reasoning_effort: str = "medium", pad: int = 0, verify: bool = True,
-               export: bool = True, cover: bool = True, vertical: bool = True, log=print) -> dict:
+               export: bool = True, cover: bool = True, vertical: bool = False, log=print) -> dict:
     """Full agent flow for one fan: pick clips -> enforce rules -> self-check -> write reel."""
     from agent.verify import verify_clips  # local import: verify imports timeline helpers too
 
@@ -261,14 +261,16 @@ def main() -> None:
     p.add_argument("--no-verify", action="store_true", help="skip the self-check")
     p.add_argument("--no-mp4", action="store_true", help="don't export reel.mp4")
     p.add_argument("--no-cover", action="store_true", help="skip Muse Image cover art")
-    p.add_argument("--no-vertical", action="store_true", help="skip the SAM 3.1 9:16 phone version")
+    p.add_argument("--vertical", action="store_true",
+                   help="also make an experimental 9:16 phone version (SAM 3.1 follow-cam); off by default "
+                        "because crops cut off on-screen name cards in talks and interviews")
     p.add_argument("--pad", type=int, default=0, help="extra segments added before/after each clip")
     args = p.parse_args()
 
     profile = json.loads(args.profile.read_text())
     reel = build_reel(profile, args.video_dir, args.model, args.reasoning_effort, args.pad,
                       verify=not args.no_verify, export=not args.no_mp4,
-                      cover=not args.no_cover, vertical=not args.no_vertical)
+                      cover=not args.no_cover, vertical=args.vertical)
 
     print()
     for c in reel["clips"]:

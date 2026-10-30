@@ -12,14 +12,14 @@ Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build
 
 ## What it does
 
-1. **Onboarding by conversation.** A user tells the Telegram bot what they care about ("space tech and rocket launches — real engine and separation moments, skip the studio chat"). Muse Spark turns that into a profile: interests, preferences in the user's voice, reel length.
+1. **Onboarding by conversation — typed or spoken.** A user tells the Telegram bot what they care about, in a message or a voice note (transcribed by **Muse Voice Transcribe**) ("space tech and rocket launches — real engine and separation moments, skip the studio chat"). Muse Spark turns that into a profile: interests, preferences in the user's voice, reel length.
 2. **Watches every new video, by itself.** The watcher agent monitors sources. A new video is split into 6-second segments and Muse Spark watches **every segment — video and audio together** — writing what's on screen, what's said, on-screen text, an event label, footage type (live / animation / studio) and an excitement score.
 3. **Understands the whole broadcast at once.** All observations (~50K tokens for an hour of video) go to Muse Spark in **one long-context call**, which groups them into the moments a viewer would recognise ("Engine ignition and liftoff", "Solid rocket booster separation") and anchors them to the key event (liftoff → T−/T+ times).
 4. **Decides who it's for.** For every subscriber, Muse Spark judges whether the broadcast matches their interests — and says why. Matched users get a reel; others are skipped, with a reason.
 5. **Cuts a personal reel.** The agent picks the best window inside each relevant moment (the last seconds of a 10-minute countdown, not all of it), within the user's time budget, ranked by priority.
 6. **Checks its own work.** Every chosen clip is cut and **re-watched** by Muse Spark: does it really show what the caption says? Does it break a rule the user set? Each clip is **passed**, **retitled** (good clip, overclaiming caption) or **rejected and replaced** (the replacement is checked too).
-7. **Makes it phone-ready.** **SAM 3.1** tracks each clip's main subject (the rocket, or its flame at night) and a 9:16 frame pans along with it; when nothing can be tracked, the full shot is kept over a blurred background. **Muse Image** paints illustrated cover art.
-8. **Delivers and keeps talking.** Cover, vertical reel and a short recap arrive on Telegram. Follow-up questions are answered from the whole broadcast — in words, with a short clip, or by rebuilding the reel at a new length.
+7. **Dresses it up.** **Muse Image** paints illustrated cover art for every reel.
+8. **Delivers and keeps talking.** Cover, reel and a short recap arrive on Telegram. Follow-up questions — typed or as voice notes — are answered from the whole broadcast — in words, with a short clip, or by rebuilding the reel at a new length.
 
 Everything the agent decides is logged and shown live in the **Control Room**.
 
@@ -29,7 +29,7 @@ Everything the agent decides is logged and shown live in the **Control Room**.
 
 | Page | Shows |
 |---|---|
-| **Live feed** | Every decision as it happens: 🆕 new video → 👀 watching (progress) → 🧭 moments found → 🎯 matched / ⏭ skipped (with reasons) → ✓ ✎ ✗ self-checks → 🎨 cover → 📱 SAM 3.1 tracking → 📨 delivered → 💬 follow-ups |
+| **Live feed** | Every decision as it happens: 🆕 new video → 👀 watching (progress) → 🧭 moments found → 🎯 matched / ⏭ skipped (with reasons) → ✓ ✎ ✗ self-checks → 🎨 cover → 📨 delivered → 🎙 voice notes → 💬 follow-ups |
 | **Subscribers** | Each user's interests and preferences, in their own words |
 | **Sources** | The video sources the agent monitors; add, pause or remove them |
 
@@ -49,7 +49,7 @@ new video ──► ffmpeg: 6 s segments ──► Muse Spark watches every segm
                                                    │
                          Muse Spark re-watches each clip: pass / retitle / replace
                                                    │
-                         Muse Image cover · SAM 3.1 follow-cam 9:16 version
+                         Muse Image cover art
                                                    │
                                                    ▼
                     Telegram: cover → reel → recap   ◄──►  follow-ups (answer · clip · rebuild)
@@ -61,8 +61,9 @@ new video ──► ffmpeg: 6 s segments ──► Muse Spark watches every segm
 |---|---|---|
 | **Muse Spark 1.2** | `ingest/analyze.py`, `agent/verify.py` | Watches each 6 s segment and each chosen clip — video **and** audio in one call |
 | **Muse Spark 1.3** | `timeline/build.py`, `agent/curate.py`, `bot/` | Long-context reasoning over the whole broadcast; matching; clip selection; onboarding; follow-ups |
-| **SAM 3.1** | `agent/vertical.py` | Tracks the subject frame by frame so the 9:16 phone version follows the action |
+| **SAM 3.1** *(experimental, `--vertical`)* | `agent/vertical.py` | Tracks a clip's subject frame by frame so a 9:16 phone version can follow the action. Off by default: on talks and interviews, crops cut off on-screen name cards |
 | **Muse Image** | `agent/cover.py` | Illustrated cover art for every reel |
+| **Muse Voice Transcribe** | `common/voice.py`, `bot/run.py` | Turns Telegram voice notes into text, so users can onboard and ask follow-ups by speaking |
 
 Muse Spark 1.2 is used wherever audio matters, because Meta's docs note that audio understanding in 1.3 is not fully supported yet.
 
@@ -70,9 +71,10 @@ Muse Spark 1.2 is used wherever audio matters, because Meta's docs note that aud
 
 - **Per-segment notes, whole-broadcast reasoning.** Segments are watched in parallel (8 at a time, resumable), then reasoned over together in one long-context call — moments come from the story of the event, not from text similarity.
 - **Self-check with three outcomes.** Hard rules (things the user said to skip, "only …") can reject a clip; soft wishes ("I prefer live footage") only add a note. A wrong caption is fixed rather than throwing away a good clip.
-- **Fail soft.** Cover art and the phone version never block delivery; an untracked clip falls back to full-frame; tracking retries with the agent's own alternative subjects (e.g. *rocket → exhaust plume → flame* at night).
+- **Fail soft.** Cover art never blocks delivery.
+- **Tried and parked: a SAM 3.1 follow-cam.** A 9:16 version that pans with the subject (retrying with the agent's own alternatives, e.g. *rocket → exhaust plume → flame* at night) works well on launch footage, but crops off speakers' name cards in briefings — so it's opt-in (`--vertical`) rather than the default.
 - **Honest time.** Mission time (T−/T+) is computed from the detected anchor event, because the model can misread the sign on broadcast clocks.
-- **Measured cost:** about $3–4 to watch an hour of video (600 segments, ~16 min with 8 workers); a few cents for the timeline, matching and each reel; $0.01 per cover.
+- **Measured cost:** about $3–4 to watch an hour of video (600 segments, ~16 min with 8 workers); a few cents for the timeline, matching and each reel; $0.01 per cover; voice notes at $0.18 per hour of audio.
 
 ## Run it
 
@@ -103,7 +105,7 @@ cp my_video.mp4 sources/nasa/
 python -m ingest.chunk data/raw/artemis_demo.mp4            # 6 s segments + manifest
 python -m ingest.analyze --reasoning-effort low             # Muse Spark watches every segment
 python -m timeline.build                                    # long-context moments
-python -m agent.curate --profile profiles/engineer.json     # reel + self-check + cover + 9:16
+python -m agent.curate --profile profiles/engineer.json     # reel + self-check + cover (add --vertical for 9:16)
 python -m scripts.send_reel --reel data/reels/artemis_demo/engineer/reel.json
 python -m bot.publish --video-dir data/processed/artemis_demo   # match + serve all subscribers
 ```
@@ -113,11 +115,11 @@ python -m bot.publish --video-dir data/processed/artemis_demo   # match + serve 
 ```
 ingest/     chunk.py (ffmpeg segments) · analyze.py (Muse Spark per segment)
 timeline/   build.py (long-context moments + anchor)
-agent/      curate.py (pick clips, budget) · verify.py (self-check) · cover.py (Muse Image) · vertical.py (SAM 3.1)
+agent/      curate.py (pick clips, budget) · verify.py (self-check) · cover.py (Muse Image) · vertical.py (SAM 3.1, opt-in)
 bot/        run.py (Telegram) · onboarding.py · matcher.py · followup.py · publish.py · store.py
 control/    server.py · watcher.py · sources.py · static/index.html (Control Room)
 messaging/  telegram.py
-common/     muse.py (API client) · events.py (decision log)
+common/     muse.py (API client) · voice.py (Muse Voice Transcribe) · events.py (decision log)
 ```
 
 ## Limits (honest)
@@ -137,4 +139,8 @@ All code in this repository was written during the hackathon, from Oct 27, 2026 
 
 ## Credits
 
-Demo footage: **Artemis I Live Launch Coverage**, NASA/Michelle Stone (NASA Image and Video Library, ID `KSC-20221116-VP-MMS01-0001-Artemis_I_Live_Launch_Coverage_720p-3314595`). Used under [NASA media guidelines](http://www.nasa.gov/multimedia/guidelines/index.html). NASA does not endorse this project. Footage is not redistributed in this repository.
+Demo footage: **Artemis I Live Launch Coverage**, NASA/Michelle Stone (NASA Image and Video Library, ID `KSC-20221116-VP-MMS01-0001-Artemis_I_Live_Launch_Coverage_720p-3314595`). Used under [NASA media guidelines](http://www.nasa.gov/multimedia/guidelines/index.html).
+
+News briefing source: **Artemis Acceleration News Conference** (October 23, 2026), NASA/Ryan Darden (NASA Image and Video Library, ID `KSC-20261023-VP-RTD01-001-ARTEMIS-ACCELERATION-CONFERENCE-PROGRAM-1080-M27955`), trimmed to the opening statements. Used under the same guidelines.
+
+NASA does not endorse this project. Footage is not redistributed in this repository.

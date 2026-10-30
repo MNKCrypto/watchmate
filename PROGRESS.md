@@ -24,18 +24,22 @@ Running log of what was built during the hackathon, and what's next. Each new wo
 
 - [x] `control/` — Control Room (`python -m control.server`, http://localhost:8000): Subscribers · Sources (watched folders, demo feed) · Live feed. Watcher agent runs the full pipeline when a source gets a new video
 - [x] `agent/cover.py` — Muse Image cover art per reel (sent as a photo with the intro)
-- [x] `agent/vertical.py` — SAM 3.1 tracks each clip's subject; ffmpeg pans a 9:16 window along the smoothed path → `reel_vertical.mp4` (sent on Telegram)
+- [x] `agent/vertical.py` — SAM 3.1 follow-cam 9:16 version. **Parked (opt-in `--vertical`)**: crops cut off speakers' name cards in the news briefing; reels go out 16:9
 - [x] README: architecture, how to run, Meta models, built-during-hackathon, credits, vision (platforms, contextual consent-based sponsorships)
-- [ ] Second subscriber (current affairs / climate) + This Week @NASA bulletin as a second source
+- [x] Second subscriber **Subscriber 2** (current affairs: announcements, plans, dates; skip launch footage, politics and budgets) + source **NASA News · current affairs** with the Artemis Acceleration News Conference (Oct 23, 2026), trimmed to the opening statements (~28.5 min, clean cut at the Kshatriya → Parsons handover)
+- [ ] `common/voice.py` + bot — voice notes (OGG/Opus → 16 kHz WAV → Muse Voice Transcribe) for onboarding and follow-ups; "🎙 I heard: …" reply; `voice` event in the live feed
 - Optional: Spark Open on partner inference (needs Baseten/Modal credits)
 
 ## Demo story (decided)
 
-Telegram onboarding (user mentions "space technology") → Artemis full broadcast (5h+) → control room shows the agent's work (timeline, matching, self-check) → reel + recap already waiting in Telegram → follow-up question in chat. Second user (current affairs / climate) gets only the climate story from a news bulletin, and is skipped for the launch.
+Subscriber 1 onboards on Telegram (space technology, rocket launches) → Artemis I launch broadcast (5h+) arrives from NASA → Control Room shows the agent's work (timeline, matching, self-check, Muse Image cover) → Subscriber 1's cover + reel + recap already waiting in Telegram → follow-up question with a clip. Subscriber 2 (current affairs) is skipped for the launch, then gets only the key announcements from the NASA news briefing — no politics or budget talk.
+
+- Tested: briefing → Subscriber 2 🎯 matched (2027/2028 plans), Subscriber 1 ⏭ skipped ("press-conference talk, no live engine burns"); recap stayed on dates and plans, no politics/budget
 
 ## Decisions
 
 - Segment length 6s: short enough for precise clips, long enough to capture an action
 - Demo footage: NASA Artemis I launch coverage, 60-min window around liftoff (~18:24 in the clip)
 - Video and generated media are git-ignored; footage is credited, not redistributed
+- Second demo source: NASA Artemis Acceleration News Conference (NASA/Ryan Darden, no licensed music). This Week @NASA was rejected: its music requires a licence and it includes SpaceX footage
 - Channel: Telegram bot. WhatsApp Cloud API was tried, but the new business account was locked by Meta's automated review (error 131031)
