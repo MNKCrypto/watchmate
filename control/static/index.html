@@ -177,6 +177,8 @@ function describe(e) {
   if (k === "step" && e.step === "serve") return ["✅", `Finished serving ${esc(e.source)}: ${esc(e.video_id)}`, "", "ok"];
   if (k === "onboarded") return ["👋", `New subscriber <b>${esc(e.user)}</b>`,
     (e.interests || []).map((i) => `<span class="chip">${esc(i)}</span>`).join(" "), "hl"];
+  if (k === "voice") return ["🎙", `<b>${esc(e.user)}</b> sent a voice note · Muse Voice Transcribe`,
+    `“${esc(e.transcript)}” (${e.seconds}s)`, ""];
   if (k === "followup") return ["💬", `<b>${esc(e.user)}</b> asked: “${esc(e.question)}”`,
     `→ ${esc(e.type)}: ${esc(e.reply)}`, ""];
   if (k === "delivery_failed" || k === "error") return ["⚠️", "Something went wrong", esc(e.error), "bad"];

@@ -7,6 +7,7 @@ Commands users can send:
     /profile    show what Watchmate is watching for
     /interests  change your interests
 Anything else: a follow-up about the last reel (question, "show me...", "make it 30 seconds").
+Voice notes work everywhere a typed message does (Muse Voice Transcribe turns them into text).
 """
 
 from __future__ import annotations
@@ -20,12 +21,14 @@ from bot import store
 from bot.followup import make_clip, respond
 from bot.onboarding import extract_profile
 from common.events import log_event
-from messaging.telegram import TelegramError, get_updates, send_text, send_typing, send_video
+from common.voice import TranscribeError, transcribe
+from messaging.telegram import TelegramError, download_file, get_updates, send_text, send_typing, send_video
 from scripts.send_reel import deliver
 
 WELCOME = ("👋 Hi {name}, I'm *Watchmate*.\n\n"
            "I watch long broadcasts for you (launches, matches, shows, news) and send you just the "
-           "moments you care about.\n\nTell me in your own words: what are you into, and what should I skip?")
+           "moments you care about.\n\nTell me in your own words — type it or send a voice note 🎙: "
+           "what are you into, and what should I skip?")
 
 
 def onboard(chat_id: str, name: str, text: str) -> None:
@@ -67,17 +70,45 @@ def follow_up(chat_id: str, sub: dict, text: str) -> None:
                   seconds=reel["total_seconds"], recap=reel["recap"], rebuild=True)
 
 
+def voice_to_text(chat_id: str, name: str, msg: dict) -> str:
+    """Voice note -> text with Muse Voice Transcribe; tells the user what it heard."""
+    voice = msg.get("voice") or msg.get("audio")
+    send_typing(chat_id)
+    path = download_file(voice["file_id"], Path("data/voice") / chat_id / f"{msg['message_id']}.ogg")
+    try:
+        result = transcribe(path)
+    except TranscribeError as e:
+        print(f"  ✗ transcription failed: {e}")
+        send_text(chat_id, "Sorry, I couldn't make out that voice note. Could you try again or type it?",
+                  markdown=False)
+        return ""
+    text = result["text"]
+    log_event("voice", chat_id=chat_id, user=name, transcript=text, seconds=result["seconds"],
+              model="muse-voice-transcribe-1.0")
+    print(f"  🎙 {name} said ({result['seconds']}s): {text}")
+    if text:
+        send_text(chat_id, f"🎙 I heard: “{text}”", markdown=False)
+    else:
+        send_text(chat_id, "I couldn't hear anything in that voice note. Could you try again?", markdown=False)
+    return text
+
+
 def handle(msg: dict) -> None:
     chat_id = str(msg["chat"]["id"])
     name = msg.get("from", {}).get("first_name", "")
+    is_voice = bool(msg.get("voice") or msg.get("audio"))
     text = (msg.get("text") or "").strip()
-    if not text:
+    if not text and not is_voice:
         return
     if not store.allowed(chat_id):
         print(f"⛔ {name} ({chat_id}) not on ALLOWED_CHAT_IDS — ignored")
         send_text(chat_id, "🙏 Watchmate is a private hackathon demo right now, so I can't chat yet. "
                   "Thanks for stopping by!", markdown=False)
         return
+    if is_voice:  # only after the allowlist check, so strangers can't spend transcription credits
+        text = voice_to_text(chat_id, name, msg)
+        if not text:
+            return
     print(f"← {name} ({chat_id}): {text}")
     sub = store.get(chat_id)
 

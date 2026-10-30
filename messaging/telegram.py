@@ -74,6 +74,18 @@ def send_typing(chat_id: int | str, action: str = "typing") -> None:
         pass
 
 
+def download_file(file_id: str, dest: Path) -> Path:
+    """Download a file a user sent (e.g. a voice note) — bots can fetch files up to 20 MB."""
+    info = _call("getFile", json={"file_id": file_id})
+    url = _api("").replace("/bot", "/file/bot", 1).rstrip("/") + "/" + info["file_path"]
+    resp = requests.get(url, timeout=60)
+    if resp.status_code != 200:
+        raise TelegramError(f"download failed: HTTP {resp.status_code}")
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_bytes(resp.content)
+    return dest
+
+
 def get_updates(offset: int | None = None, timeout: int = 25) -> list[dict]:
     """Long-poll for new messages. Pass offset = last update_id + 1 to acknowledge earlier ones."""
     params = {"timeout": timeout, "allowed_updates": ["message"]}
