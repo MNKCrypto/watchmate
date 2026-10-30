@@ -116,7 +116,12 @@ def enforce(clips: list[dict], n_segments: int, max_seconds: float, seg_len: flo
         if merged and c["start_seg"] <= merged[-1]["end_seg"] + 1:
             last = merged[-1]
             last["end_seg"] = max(last["end_seg"], c["end_seg"])
-            last["title"] = f"{last['title']} / {c['title']}"
+            # keep ONE short caption: the more important clip's (ties: the earlier one)
+            if c["priority"] < last["priority"]:
+                last["title"] = c["title"]
+                for k in ("subject", "subject_alternates"):
+                    if k in c:
+                        last[k] = c[k]
             last["reason"] = f"{last.get('reason', '')} {c.get('reason', '')}".strip()
             last["priority"] = min(last["priority"], c["priority"])
         else:
