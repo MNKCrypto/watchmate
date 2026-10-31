@@ -2,3 +2,4 @@
 openai>=1.40        # Meta Model API is OpenAI-SDK compatible (base_url https://api.meta.ai/v1)
 python-dotenv>=1.0
 requests>=2.31      # Telegram Bot API
+

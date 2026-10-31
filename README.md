@@ -2,7 +2,15 @@
 
 **An AI agent that watches long videos for you and sends each person their own highlight reel.**
 
-Live broadcasts run for hours — a rocket launch, a match, a news bulletin. Most people care about a few minutes of it, and different minutes from the person next to them. Tell WatchMate once, in your own words, what you're into. When a source publishes something new, the agent watches all of it, decides who it's for, cuts each subscriber a personal reel, checks its own work, and delivers it to their phone on Telegram. Then you can ask follow-ups: *"show me what happened after the boosters separated"*, *"make it 30 seconds"*.
+### The problem: one highlight reel for everyone
+
+Live broadcasts run for hours — a rocket launch, a match, a news bulletin. Most people care about a few minutes of it, **and not the same minutes as the person next to them.** At a rocket launch, an engineer wants the engine ignition and the stage separations; someone following the news just wants *"did it launch, and what's next?"*. Yet today the broadcaster cuts **one** highlight reel and everyone gets the same one — so most viewers either sit through hours or never see the part they cared about.
+
+### The idea: everyone gets their own cut
+
+Tell WatchMate once, in your own words — typed or as a voice note — what you're into. When a source publishes something new, the agent watches all of it, decides who it's for, cuts **each subscriber a personal reel**, checks its own work, and delivers it to their phone on Telegram. If a video isn't for you, it skips you and says why. Then you can ask follow-ups: *"show me what happened after the boosters separated"*, *"make it 30 seconds"*.
+
+> **Same 60-minute launch, two viewers, two different reels:** the engineer gets 5 clips / 114 s of engines and staging; the news follower gets 4 clips / 60 s of the milestones. A news briefing later serves only the news follower, and skips the engineer with a reason. Real outputs: [`examples/`](examples/README.md).
 
 Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build for Your World*) with Meta's Muse models.
 
