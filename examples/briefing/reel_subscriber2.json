@@ -1,0 +1,192 @@
+{
+  "profile": {
+    "name": "subscriber2",
+    "display_name": "Subscriber 2",
+    "preferences": "I follow current affairs and I just want the big news \u2014 major announcements, decisions, new dates and milestones, like a launch actually happening. Keep my reels short, under a minute. Please skip politics, budgets and long technical details.",
+    "max_seconds": 60
+  },
+  "video_id": "artemis_briefing",
+  "title": "NASA lays out accelerated Moon return: Artemis III in 2027, landing in 2028",
+  "model": "muse-spark-1.3",
+  "total_seconds": 60.0,
+  "recap": "You get the two big dates, summer 2027 for Artemis 3 and 2028 for the Moon return, plus the four-astronaut LEO test and the decision to drop the Mobile Launcher combo.",
+  "clips": [
+    {
+      "start_seg": 28,
+      "end_seg": 29,
+      "priority": 2,
+      "title": "Artemis 3 to carry four astronauts",
+      "subject": "rocket",
+      "subject_alternates": [
+        "engine",
+        "hangar"
+      ],
+      "reason": "Milestone for next mission: Artemis 3 set to launch next year to send four astronauts to low Earth orbit to practice docking.",
+      "verified": true,
+      "start": 168.0,
+      "end": 180.0
+    },
+    {
+      "start_seg": 89,
+      "end_seg": 91,
+      "priority": 1,
+      "title": "Artemis 3 launch set summer 2027",
+      "subject": "person",
+      "subject_alternates": [
+        "podium",
+        "flag"
+      ],
+      "reason": "Major new date for current affairs fan: announces year-end tanking test and summer 2027 Artemis 3 launch, not politics or technical detail.",
+      "verified": true,
+      "start": 534.0,
+      "end": 552.0
+    },
+    {
+      "start_seg": 100,
+      "end_seg": 101,
+      "priority": 1,
+      "title": "Astronauts to return to Moon 2028",
+      "subject": "person",
+      "subject_alternates": [
+        "podium",
+        "flag"
+      ],
+      "reason": "Major milestone announcement: American astronauts to take first steps on lunar surface in 2028 with hardware waiting, fits big news want.",
+      "verified": true,
+      "start": 600.0,
+      "end": 612.0
+    },
+    {
+      "start_seg": 232,
+      "end_seg": 234,
+      "priority": 2,
+      "title": "Mobile Launcher and upper stage dropped",
+      "subject": "person",
+      "subject_alternates": [
+        "microphone",
+        "table"
+      ],
+      "reason": "Major decision: focus on rate and reliability and drop non-converging Mobile Launcher with brand-new Exploration Upper Stage.",
+      "verified": true,
+      "start": 1392.0,
+      "end": 1410.0
+    }
+  ],
+  "dropped": [],
+  "proposed": [
+    {
+      "start_seg": 89,
+      "end_seg": 91,
+      "priority": 1,
+      "title": "Artemis 3 launch set summer 2027",
+      "subject": "person",
+      "subject_alternates": [
+        "podium",
+        "flag"
+      ],
+      "reason": "Major new date for current affairs fan: announces year-end tanking test and summer 2027 Artemis 3 launch, not politics or technical detail."
+    },
+    {
+      "start_seg": 100,
+      "end_seg": 101,
+      "priority": 1,
+      "title": "Astronauts to return to Moon 2028",
+      "subject": "person",
+      "subject_alternates": [
+        "podium",
+        "flag"
+      ],
+      "reason": "Major milestone announcement: American astronauts to take first steps on lunar surface in 2028 with hardware waiting, fits big news want."
+    },
+    {
+      "start_seg": 28,
+      "end_seg": 29,
+      "priority": 2,
+      "title": "Artemis 3 to carry four astronauts",
+      "subject": "rocket",
+      "subject_alternates": [
+        "engine",
+        "hangar"
+      ],
+      "reason": "Milestone for next mission: Artemis 3 set to launch next year to send four astronauts to low Earth orbit to practice docking."
+    },
+    {
+      "start_seg": 232,
+      "end_seg": 234,
+      "priority": 2,
+      "title": "Mobile Launcher and upper stage dropped",
+      "subject": "person",
+      "subject_alternates": [
+        "microphone",
+        "table"
+      ],
+      "reason": "Major decision: focus on rate and reliability and drop non-converging Mobile Launcher with brand-new Exploration Upper Stage."
+    }
+  ],
+  "verification": [
+    {
+      "clip": "Artemis 3 to carry four astronauts",
+      "segments": [
+        28,
+        29
+      ],
+      "shows": "SLS core stage in hangar while narration announces Artemis 3 will launch next year with four astronauts to low Earth orbit to practice docking",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.88
+    },
+    {
+      "clip": "Artemis 3 launch set summer 2027",
+      "segments": [
+        89,
+        91
+      ],
+      "shows": "A man in a suit announces at a podium that Artemis 3 is set for a summer 2027 launch after a year-end tanking test",
+      "footage": "studio",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    },
+    {
+      "clip": "Astronauts to return to Moon 2028",
+      "segments": [
+        100,
+        101
+      ],
+      "shows": "A NASA official at a podium announces American astronauts will take first steps on the lunar surface in 2028",
+      "footage": "studio",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.92
+    },
+    {
+      "clip": "Mobile Launcher and upper stage dropped",
+      "segments": [
+        232,
+        234
+      ],
+      "shows": "Official in suit at press conference announces decision to drop Mobile Launcher and Exploration Upper Stage to focus on rate and reliability",
+      "footage": "studio",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.88
+    }
+  ],
+  "playlist": "data/reels/artemis_briefing/subscriber2/playlist.m3u8",
+  "seconds_taken": 82.1,
+  "mp4": "data/reels/artemis_briefing/subscriber2/reel.mp4",
+  "cover": "data/reels/artemis_briefing/subscriber2/cover.jpg"
+}

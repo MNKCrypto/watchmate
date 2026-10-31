@@ -1,0 +1,347 @@
+{
+  "video_id": "artemis_briefing",
+  "title": "NASA lays out accelerated Moon return: Artemis III in 2027, landing in 2028",
+  "kind": "talk",
+  "anchor": null,
+  "model": "muse-spark-1.3",
+  "moments": [
+    {
+      "start_seg": 0,
+      "end_seg": 9,
+      "title": "NASA opens Artemis acceleration briefing",
+      "summary": "Deputy Press Secretary George Alderman welcomes media to Kennedy Space Center for Artemis updates, introduces Administrator Jared Isaacman and others, then hands live to the Vehicle Assembly Building.",
+      "type": "opening",
+      "footage": "mixed",
+      "excitement": 2,
+      "tags": [
+        "Artemis",
+        "Kennedy",
+        "press briefing"
+      ],
+      "evidence": "'We're here today to share a series of updates on NASA's ongoing work to accelerate the Artemis program' over ARTEMIS ACCELERATION backdrop, then aerial of VAB",
+      "id": "m000",
+      "start": 0.0,
+      "end": 60.0
+    },
+    {
+      "start_seg": 10,
+      "end_seg": 31,
+      "title": "Artemis III core stage in VAB for next year's LEO docking test",
+      "summary": "Megan Cruz reports from the VAB where the Artemis III SLS core stage with four RS-25 engines is being weighed and prepared for vertical integration with fully assembled boosters. Artemis 3 will fly four astronauts to low Earth orbit to practice Orion docking with two commercial test landers for Artemis 4.",
+      "type": "announcement",
+      "footage": "live",
+      "excitement": 6,
+      "tags": [
+        "Artemis III",
+        "SLS core stage",
+        "VAB",
+        "docking test"
+      ],
+      "evidence": "'this one in particular will fly NASA's Artemis 3 crew' and 'next year we'll send four astronauts to low Earth orbit to practice docking their Orion spacecraft with two commercial test landers'",
+      "id": "m001",
+      "start": 60.0,
+      "end": 192.0
+    },
+    {
+      "start_seg": 32,
+      "end_seg": 38,
+      "title": "Isaacman hails rapid progress since Artemis 2",
+      "summary": "Administrator Jared Isaacman thanks the Kennedy, NASA, industry and international workforce, noting Artemis 2 launched just months ago and the next vehicle is already showing amazing progress.",
+      "type": "opening",
+      "footage": "studio",
+      "excitement": 2,
+      "tags": [
+        "Isaacman",
+        "workforce",
+        "Artemis 2"
+      ],
+      "evidence": "'how impressive is that? I'm just so proud of the entire team' and 'a handful of months ago that Artemis 2 just launched and came back'",
+      "id": "m002",
+      "start": 192.0,
+      "end": 234.0
+    },
+    {
+      "start_seg": 39,
+      "end_seg": 52,
+      "title": "Apollo went from splashdown to Moon landing in nine months",
+      "summary": "Isaacman recalls October 1968: Apollo 7 had just splashed down, Apollo 8's Saturn V was at 39A to send Borman, Lovell and Anders to lunar orbit, Apollo 9 and Apollo 10 hardware ready, and nine months later Eagle landed Armstrong and Aldrin on the Moon.",
+      "type": "explainer",
+      "footage": "studio",
+      "excitement": 3,
+      "tags": [
+        "Apollo",
+        "Apollo 7",
+        "Apollo 8",
+        "Apollo 11"
+      ],
+      "evidence": "'It's October 1968' and 'The Eagle's gonna land and Neil Armstrong and Buzz Aldrin will walk on the Moon' in nine months",
+      "id": "m003",
+      "start": 234.0,
+      "end": 318.0
+    },
+    {
+      "start_seg": 53,
+      "end_seg": 66,
+      "title": "China aims to land astronauts on Moon in next three years",
+      "summary": "Isaacman frames a new space race, detailing China's progress from first solo flight 23 years ago to satellites, autonomous landers, far-side sample return, planned moon base with Russia, and soon reusable rockets and a two-launch crewed landing architecture.",
+      "type": "politics/budget",
+      "footage": "studio",
+      "excitement": 5,
+      "tags": [
+        "China",
+        "space race",
+        "Moon base"
+      ],
+      "evidence": "'China achieved its John Glenn moment... just 23 years ago' and 'credible two-launch texture to put their astronauts on the lunar surface in the next three years'",
+      "id": "m004",
+      "start": 318.0,
+      "end": 402.0
+    },
+    {
+      "start_seg": 67,
+      "end_seg": 82,
+      "title": "No more too-big-to-fail programs, vows end to bureaucracy",
+      "summary": "Isaacman declares tolerance for status quo over, rejecting programs too big to fail, compromising architecture for suppliers, bureaucratic inertia, outsourcing expertise, and the idea that more time, money and flying less makes work safer.",
+      "type": "politics/budget",
+      "footage": "studio",
+      "excitement": 4,
+      "tags": [
+        "reform",
+        "bureaucracy",
+        "Apollo playbook"
+      ],
+      "evidence": "'No longer will we create programs that are too big to fail and too costly to succeed' and 'same playbook that went from Apollo 7 splashdown to Apollo 11 in just nine months'",
+      "id": "m005",
+      "start": 402.0,
+      "end": 498.0
+    },
+    {
+      "start_seg": 83,
+      "end_seg": 96,
+      "title": "Artemis III targets summer 2027 to test rendezvous for 2028 landing",
+      "summary": "Isaacman previews tactical talks, citing halved assembly schedule, a year-end tanking test and summer 2027 Artemis 3 launch to bring together SLS, Orion and two landing systems. Artemis 4 preserves optionality for both landing partners before a 2028 lunar landing.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 8,
+      "tags": [
+        "Artemis 3",
+        "Artemis 4",
+        "2027",
+        "2028",
+        "landing partners"
+      ],
+      "evidence": "'cut the assembly and integration schedule in half and the work ahead toward a year-end tanking test and a summer 2027 Artemis 3 launch' and 'greatest opportunity for readiness in advance of astronauts landing on the moon in 2028'",
+      "id": "m006",
+      "start": 498.0,
+      "end": 582.0
+    },
+    {
+      "start_seg": 97,
+      "end_seg": 104,
+      "title": "Blue Origin's New Glenn and Mk1 share hardware with crewed landers",
+      "summary": "Moon base precursor missions including Blue Origin's New Glenn and Mark One landers share commonality with future transfer stages and crewed landers, providing data, risk reduction and early elements of an enduring presence, with a rover waiting for crew.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 5,
+      "tags": [
+        "Blue Origin",
+        "New Glenn",
+        "Moon base",
+        "rover"
+      ],
+      "evidence": "'especially Blue Origin's New Glenn rocket and Mark One landers, share important commonality with the transfer stages and crewed landers that will follow'",
+      "id": "m007",
+      "start": 582.0,
+      "end": 630.0
+    },
+    {
+      "start_seg": 105,
+      "end_seg": 114,
+      "title": "NASA to lighten suits, boost upper stage, rework Orion for landers",
+      "summary": "NASA will dramatically reduce lunar spacesuit mass, improve upper stage performance to get Orion closer to the Moon, and modify Orion for different lander requirements. Isaacman cites unsolved propulsion, integration and two very different landing systems requiring complex cryogenic and orbital aggregation demos.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 6,
+      "tags": [
+        "spacesuit",
+        "upper stage",
+        "Orion",
+        "landers"
+      ],
+      "evidence": "'directly reducing the mass of our lunar spacesuits means improving our upper stage performance to get Orion closer to the moon and modifying Orion to accommodate different lander requirements'",
+      "id": "m008",
+      "start": 630.0,
+      "end": 690.0
+    },
+    {
+      "start_seg": 115,
+      "end_seg": 124,
+      "title": "Moon plan is lasting city and economy, not flags and footprints",
+      "summary": "Isaacman says new vehicles will slash cost of delivering mass to orbit and the Moon, enabling longer stays, more frequent flights, a growing outpost toward a lunar city, a lunar economy, science, learning to live off Earth and tech for Mars.",
+      "type": "explainer",
+      "footage": "studio",
+      "excitement": 4,
+      "tags": [
+        "lunar economy",
+        "Mars",
+        "city on Moon"
+      ],
+      "evidence": "'not be a repeat of the flags and footprints' and 'may one day to resemble a city on the lunar surface' to 'spark a lunar economy' and need for Mars",
+      "id": "m009",
+      "start": 690.0,
+      "end": 750.0
+    },
+    {
+      "start_seg": 125,
+      "end_seg": 150,
+      "title": "We will never launch until ready but reject delay as safety",
+      "summary": "Isaacman pledges no compromise on testing and qualifying hardware and never launching until ready, but rejects that great achievements need more time and money. He touts rebuilding design-build-fly talent, extreme ownership on broken schedules, and an energized generation choosing to go.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 4,
+      "tags": [
+        "safety",
+        "workforce",
+        "extreme ownership",
+        "Artemis generation"
+      ],
+      "evidence": "'we will never launch until we are ready' but 'will not accept that great achievements simply require more time and more money' and 'when a schedule is broken, NASA personnel will be knocking on the door... to roll up their sleeves'",
+      "id": "m010",
+      "start": 750.0,
+      "end": 906.0
+    },
+    {
+      "start_seg": 151,
+      "end_seg": 166,
+      "title": "Artemis II missed insertion by 3.65 feet, nailed apogee",
+      "summary": "Associate Administrator Amit Kshatriya bridges vision to tactics, praising Artemis 2's SLS accuracy \u2014 orbital insertion 99.9987% accurate at 27,227.75 ft/s, apogee 1200.21 vs 1200 nm predicted \u2014 and Orion heat-shield performance on lofted reentry.",
+      "type": "result",
+      "footage": "studio",
+      "excitement": 6,
+      "tags": [
+        "Artemis 2",
+        "SLS accuracy",
+        "Orion heat shield"
+      ],
+      "evidence": "'Missed it by 3.65 feet' and 'actual is 1200 Point two one' plus 'analysis of the Orion heat shield, and... how the mitigations for the lofted reentry performed'",
+      "id": "m011",
+      "start": 906.0,
+      "end": 1002.0
+    },
+    {
+      "start_seg": 167,
+      "end_seg": 191,
+      "title": "Extreme ownership, workforce rebuild and focus choices behind acceleration",
+      "summary": "Kshatriya outlines a 2026 strategic arc: extreme ownership including owning Starliner mistakes, rebuilding competencies and making NASA awesome to work for, centralizing on achievable front-running choices as Ignition, reorganizing execution, while flying four people around the Moon.",
+      "type": "explainer",
+      "footage": "studio",
+      "excitement": 3,
+      "tags": [
+        "extreme ownership",
+        "Starliner",
+        "Ignition",
+        "workforce"
+      ],
+      "evidence": "'extreme ownership is our mantra' and 'when we talked about Starliner' plus 'we made it awesome to want to work for NASA again' and 'that's what ignition was'",
+      "id": "m012",
+      "start": 1002.0,
+      "end": 1152.0
+    },
+    {
+      "start_seg": 192,
+      "end_seg": 214,
+      "title": "2023 overhaul: Artemis was at 50% production rate with brittle architecture",
+      "summary": "Kshatriya says hardware was built to preserve capabilities without mission focus until the Moon mandate, and after Artemis 1 the program realigned in 2023 for brittle architecture, misaligned contracts and 20-year acquisition tranches, finding only ~50% of needed production rate.",
+      "type": "explainer",
+      "footage": "studio",
+      "excitement": 5,
+      "tags": [
+        "Artemis 1",
+        "production risk",
+        "architecture",
+        "2023"
+      ],
+      "evidence": "'There was not a mission focus for those machines' and 'We're at best case, fifty percent where we need to be in terms of their ability to crank this hardware out'",
+      "id": "m013",
+      "start": 1152.0,
+      "end": 1290.0
+    },
+    {
+      "start_seg": 215,
+      "end_seg": 231,
+      "title": "Artemis adopts Apollo test-objective approach to reach landing",
+      "summary": "After 18 months iterating into Artemis II prep, NASA considered different rendezvous orbits, alternate stages and LEO missions, choosing the Apollo way: spread integrated ground and flight test objectives across missions to incrementally earn a landing with balanced risk.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 5,
+      "tags": [
+        "Apollo approach",
+        "test objectives",
+        "rendezvous",
+        "LEO"
+      ],
+      "evidence": "'we took the Apollo approach. Instead of thinking about these missions as just... we thought about them as a series of integrated test objectives' for ground test and in-flight test",
+      "id": "m014",
+      "start": 1290.0,
+      "end": 1392.0
+    },
+    {
+      "start_seg": 232,
+      "end_seg": 245,
+      "title": "February 2026 reset shelved Mobile Launcher/EUS combo, set Ignition",
+      "summary": "In February 2026 during the Artemis launch campaign, leadership decided to focus on rate and reliability, dropping the non-converging Mobile Launcher with brand-new Exploration Upper Stage. Ignition followed a month later with ambitious goals including nuclear NASA and accelerated achievable timelines.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 7,
+      "tags": [
+        "February 2026",
+        "Mobile Launcher",
+        "Exploration Upper Stage",
+        "Ignition",
+        "nuclear"
+      ],
+      "evidence": "'mobile launcher which wasn't going to converge at that point with Exploration Upper Stage was going to be a brand new stage' and 'that's what happened in February of 2026' and 'ignition happened just a month afterwards' plus 'future of a nuclear NASA'",
+      "id": "m015",
+      "start": 1392.0,
+      "end": 1476.0
+    },
+    {
+      "start_seg": 246,
+      "end_seg": 266,
+      "title": "Building rockets builds free workforce: One Production Enterprise",
+      "summary": "Kshatriya argues making machines freely yields a trained workforce that can do the near-impossible for 20 years, driving insourcing, design standards, humming machine shops and a single integrated One Production Enterprise to fill gaps and start work in-house.",
+      "type": "explainer",
+      "footage": "studio",
+      "excitement": 3,
+      "tags": [
+        "insourcing",
+        "workforce",
+        "machine shops",
+        "One Production Enterprise"
+      ],
+      "evidence": "'When we make these incredible machines, we get something for free... a trained, capable workforce that knows how to... do the near impossible' and 'One Production Enterprise'",
+      "id": "m016",
+      "start": 1476.0,
+      "end": 1602.0
+    },
+    {
+      "start_seg": 267,
+      "end_seg": 286,
+      "title": "Courageous impatience earns support, hand to Parsons",
+      "summary": "Kshatriya cites aligned leadership, administration, Congress resources and clarity of vision behind One NASA, praises industry and international partners for hard sacrifices, calls Jeremy Parsons' execution courageous impatience, and hands over after five years working together since station.",
+      "type": "announcement",
+      "footage": "studio",
+      "excitement": 3,
+      "tags": [
+        "Congress",
+        "Jeremy Parsons",
+        "partnerships",
+        "handover"
+      ],
+      "evidence": "'vision is important but it takes courageous impatience to do what Jeremy's team is doing' and 'Jeremy and I started working together when I joined Artemis after Space station about five years ago... Go ahead Jeremy. Thank you. And uh\u2014'",
+      "id": "m017",
+      "start": 1602.0,
+      "end": 1718.167
+    }
+  ]
+}

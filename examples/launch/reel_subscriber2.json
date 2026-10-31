@@ -1,0 +1,192 @@
+{
+  "profile": {
+    "name": "subscriber2",
+    "display_name": "Subscriber 2",
+    "preferences": "I follow current affairs and I just want the big news \u2014 major announcements, decisions, new dates and milestones, like a launch actually happening. Keep my reels short, under a minute. Please skip politics, budgets and long technical details.",
+    "max_seconds": 60
+  },
+  "video_id": "artemis_launch",
+  "title": "Artemis I Night Launch - SLS and Orion to the Moon",
+  "model": "muse-spark-1.3",
+  "total_seconds": 60.0,
+  "recap": "You got the go for launch, the liftoff of Artemis One, booster separation in flight, and confirmation all four solar arrays deployed. These are the major decisions and milestones from the broadcast.",
+  "clips": [
+    {
+      "start_seg": 69,
+      "end_seg": 70,
+      "priority": 1,
+      "title": "Go to launch Artemis One",
+      "subject": "person",
+      "subject_alternates": [
+        "screen",
+        "console"
+      ],
+      "reason": "Major decision the fan wants: launch director gives go to resume count and launch Artemis One, excitement 7 KEY moment.",
+      "verified": true,
+      "start": 414.0,
+      "end": 426.0
+    },
+    {
+      "start_seg": 182,
+      "end_seg": 185,
+      "priority": 1,
+      "title": "Artemis One lifts off",
+      "subject": "rocket",
+      "subject_alternates": [
+        "flame",
+        "exhaust plume"
+      ],
+      "reason": "Biggest payoff: hydrogen igniters, engine start, boosters ignition and liftoff, live excitement 9-10, actual launch happening.",
+      "verified": true,
+      "start": 1092.0,
+      "end": 1116.0
+    },
+    {
+      "start_seg": 207,
+      "end_seg": 208,
+      "priority": 2,
+      "title": "Boosters separate in flight",
+      "subject": "flame",
+      "subject_alternates": [
+        "exhaust plume",
+        "light"
+      ],
+      "reason": "Major milestone: confirmation that solid rocket boosters have separated, core stage continues on four engines, live excitement 8-9.",
+      "verified": true,
+      "start": 1242.0,
+      "end": 1254.0
+    },
+    {
+      "start_seg": 425,
+      "end_seg": 426,
+      "priority": 2,
+      "title": "All solar arrays deployed",
+      "subject": "spacecraft",
+      "subject_alternates": [
+        "screen",
+        "person"
+      ],
+      "reason": "Major milestone: confirmation all four arrays are deployed, Orion can sustain power, live excitement 7 KEY announcement.",
+      "verified": true,
+      "start": 2550.0,
+      "end": 2562.0
+    }
+  ],
+  "dropped": [],
+  "proposed": [
+    {
+      "start_seg": 69,
+      "end_seg": 70,
+      "priority": 1,
+      "title": "Go to launch Artemis One",
+      "subject": "person",
+      "subject_alternates": [
+        "screen",
+        "console"
+      ],
+      "reason": "Major decision the fan wants: launch director gives go to resume count and launch Artemis One, excitement 7 KEY moment."
+    },
+    {
+      "start_seg": 182,
+      "end_seg": 185,
+      "priority": 1,
+      "title": "Artemis One lifts off",
+      "subject": "rocket",
+      "subject_alternates": [
+        "flame",
+        "exhaust plume"
+      ],
+      "reason": "Biggest payoff: hydrogen igniters, engine start, boosters ignition and liftoff, live excitement 9-10, actual launch happening."
+    },
+    {
+      "start_seg": 207,
+      "end_seg": 208,
+      "priority": 2,
+      "title": "Boosters separate in flight",
+      "subject": "flame",
+      "subject_alternates": [
+        "exhaust plume",
+        "light"
+      ],
+      "reason": "Major milestone: confirmation that solid rocket boosters have separated, core stage continues on four engines, live excitement 8-9."
+    },
+    {
+      "start_seg": 425,
+      "end_seg": 426,
+      "priority": 2,
+      "title": "All solar arrays deployed",
+      "subject": "spacecraft",
+      "subject_alternates": [
+        "screen",
+        "person"
+      ],
+      "reason": "Major milestone: confirmation all four arrays are deployed, Orion can sustain power, live excitement 7 KEY announcement."
+    }
+  ],
+  "verification": [
+    {
+      "clip": "Go to launch Artemis One",
+      "segments": [
+        69,
+        70
+      ],
+      "shows": "Launch director in control room gives go to resume count for Artemis One launch",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    },
+    {
+      "clip": "Artemis One lifts off",
+      "segments": [
+        182,
+        185
+      ],
+      "shows": "Live night launch of Artemis I SLS with engine hydrogen burn-off, ignition and liftoff ascending on bright plume",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.98
+    },
+    {
+      "clip": "Boosters separate in flight",
+      "segments": [
+        207,
+        208
+      ],
+      "shows": "Night live footage shows two solid rocket boosters separating and trailing fire as the core stage continues flight",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    },
+    {
+      "clip": "All solar arrays deployed",
+      "segments": [
+        425,
+        426
+      ],
+      "shows": "Audio confirms all four solar arrays deployed over overexposed live spacecraft view and Mission Control Center",
+      "footage": "mixed",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.94
+    }
+  ],
+  "playlist": "data/reels/artemis_launch/subscriber2/playlist.m3u8",
+  "seconds_taken": 69.5,
+  "mp4": "data/reels/artemis_launch/subscriber2/reel.mp4",
+  "cover": "data/reels/artemis_launch/subscriber2/cover.jpg"
+}

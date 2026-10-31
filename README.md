@@ -1,12 +1,27 @@
-# Watchmate
+# WatchMate
 
 **An AI agent that watches long videos for you and sends each person their own highlight reel.**
 
-Live broadcasts run for hours — a rocket launch, a match, a news bulletin. Most people care about a few minutes of it, and different minutes from the person next to them. Tell Watchmate once, in your own words, what you're into. When a source publishes something new, the agent watches all of it, decides who it's for, cuts each subscriber a personal reel, checks its own work, and delivers it to their phone on Telegram. Then you can ask follow-ups: *"show me what happened after the boosters separated"*, *"make it 30 seconds"*.
+Live broadcasts run for hours — a rocket launch, a match, a news bulletin. Most people care about a few minutes of it, and different minutes from the person next to them. Tell WatchMate once, in your own words, what you're into. When a source publishes something new, the agent watches all of it, decides who it's for, cuts each subscriber a personal reel, checks its own work, and delivers it to their phone on Telegram. Then you can ask follow-ups: *"show me what happened after the boosters separated"*, *"make it 30 seconds"*.
 
 Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build for Your World*) with Meta's Muse models.
 
 > 🎬 Demo video: *(link added at submission)*
+
+## For judges
+
+**Track:** Indie developer · **Theme:** Build for Your World · **Meta models:** Muse Spark 1.2, Muse Spark 1.3, Muse Image, Muse Voice Transcribe, SAM 3.1 (experimental)
+
+**In one line:** an autonomous agent that watches a whole broadcast, decides who it's for, and cuts each subscriber their own self-checked highlight reel from what they said they care about.
+
+| Criterion | Evidence | Where |
+|---|---|---|
+| **Creativity** | One video → a different reel per person, chosen from their own words (typed or spoken). Skips are explained ("all briefing talk with no engine ignition…"). Follow-ups answer with the exact clip. | [`examples/`](examples/README.md), [`bot/matcher.py`](bot/matcher.py), [`bot/followup.py`](bot/followup.py) |
+| **Technical ambition** | Muse Spark watches **every 6-second segment, video and audio together** (600 calls for an hour, parallel and resumable); the whole broadcast is reasoned over in **one long-context call** (event vs talk, anchor-relative T−/T+ time); every chosen clip is **cut and re-watched** (pass / retitle / replace); Muse Image covers; Muse Voice Transcribe for voice notes; autonomous watcher; Control Room live feed. | [`ingest/analyze.py`](ingest/analyze.py), [`timeline/build.py`](timeline/build.py), [`agent/curate.py`](agent/curate.py), [`agent/verify.py`](agent/verify.py), [`control/watcher.py`](control/watcher.py) |
+| **Whether it works** | A clean end-to-end run (Oct 31): 60-min launch → Subscriber 1: 5 clips / 114 s, Subscriber 2: 4 clips / 60 s; 28.6-min briefing → Subscriber 1 skipped with a reason, Subscriber 2 served with no politics/budget clips; voice follow-up answered with a clip. Real outputs, unedited. | [`examples/README.md`](examples/README.md), [`examples/decision_log.jsonl`](examples/decision_log.jsonl) |
+| **Build for Your World** | Two people, same news, different minutes they care about, and neither has five hours. Delivered where they already are (Telegram), in their own words. | Demo video (link above) · [`bot/run.py`](bot/run.py) |
+
+**By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22 min from new video to two delivered reels.
 
 ---
 
@@ -25,7 +40,7 @@ Everything the agent decides is logged and shown live in the **Control Room**.
 
 ## The Control Room
 
-`python -m control.server` → <http://localhost:8000> — the operator console of the company running Watchmate:
+`python -m control.server` → <http://localhost:8000> — the operator console of the company running WatchMate:
 
 | Page | Shows |
 |---|---|
@@ -120,6 +135,7 @@ bot/        run.py (Telegram) · onboarding.py · matcher.py · followup.py · p
 control/    server.py · watcher.py · sources.py · static/index.html (Control Room)
 messaging/  telegram.py
 common/     muse.py (API client) · voice.py (Muse Voice Transcribe) · events.py (decision log)
+examples/   real outputs from one end-to-end run: timelines, reels, covers, decision log
 ```
 
 ## Limits (honest)
@@ -131,7 +147,7 @@ common/     muse.py (API client) · voice.py (Muse Voice Transcribe) · events.p
 
 ## Where this goes
 
-Any long video, re-cut for each viewer and delivered where they already are — sports, entertainment, news. A league, broadcaster or streaming library plugs in as a source; every viewer gets their own version. And because every subscriber tells Watchmate exactly what they care about, it is a natural channel for **contextual, consent-based sponsorships**: the right brand next to the right moment, using only what the viewer chose to share.
+Any long video, re-cut for each viewer and delivered where they already are — sports, entertainment, news. A league, broadcaster or streaming library plugs in as a source; every viewer gets their own version. And because every subscriber tells WatchMate exactly what they care about, it is a natural channel for **contextual, consent-based sponsorships**: the right brand next to the right moment, using only what the viewer chose to share.
 
 ## Built during the hackathon
 

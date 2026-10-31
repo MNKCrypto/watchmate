@@ -1,0 +1,234 @@
+{
+  "profile": {
+    "name": "subscriber1",
+    "display_name": "Subscriber 1",
+    "preferences": "I'm into space tech and rocket launches. I want the real engineering moments: engine ignition, liftoff, booster and stage separation, and how the vehicle is performing. I prefer live footage over animations. Skip the studio chat, crowd shots and interviews. Keep it around two minutes.",
+    "max_seconds": 120
+  },
+  "video_id": "artemis_launch",
+  "title": "Artemis I Night Launch - SLS and Orion to the Moon",
+  "model": "muse-spark-1.3",
+  "total_seconds": 114.0,
+  "recap": "You get RS-25 ignition through liftoff, throttling through Max Q, booster jettison and fairing separation plus the gimbal steering test. All clips use live pad and tracking views showing thrust, speed and staging as it happened.",
+  "clips": [
+    {
+      "start_seg": 158,
+      "end_seg": 160,
+      "priority": 3,
+      "title": "RS-25 gimbal steering test",
+      "subject": "engine",
+      "subject_alternates": [
+        "rocket",
+        "nozzle"
+      ],
+      "reason": "Real engineering moment in terminal count live: close-up of four RS-25 nozzles gimballing to test steering before launch.",
+      "verified": true,
+      "start": 948.0,
+      "end": 966.0
+    },
+    {
+      "start_seg": 182,
+      "end_seg": 186,
+      "priority": 1,
+      "title": "Engine ignition and liftoff",
+      "subject": "rocket",
+      "subject_alternates": [
+        "flame",
+        "exhaust plume"
+      ],
+      "reason": "Core request for engine ignition and liftoff in live footage, with hydrogen burnoff igniters, RS-25 start, booster ignition and night liftoff at excitement 9-10.",
+      "verified": true,
+      "start": 1092.0,
+      "end": 1122.0
+    },
+    {
+      "start_seg": 194,
+      "end_seg": 197,
+      "priority": 2,
+      "title": "Engines throttle through Max Q",
+      "subject": "plume",
+      "subject_alternates": [
+        "flame",
+        "rocket"
+      ],
+      "reason": "Shows how vehicle is performing live: four core engines throttling down for Max Q then back to maximum thrust at 1,420 mph.",
+      "verified": true,
+      "start": 1164.0,
+      "end": 1188.0
+    },
+    {
+      "start_seg": 206,
+      "end_seg": 209,
+      "priority": 1,
+      "title": "Solid rocket booster separation",
+      "subject": "flame",
+      "subject_alternates": [
+        "exhaust plume",
+        "rocket"
+      ],
+      "reason": "Core request for booster separation live, showing twin 177-foot boosters cutting off and jettisoning with two plumes moving apart at excitement 8-9.",
+      "verified": true,
+      "start": 1236.0,
+      "end": 1260.0
+    },
+    {
+      "start_seg": 214,
+      "end_seg": 216,
+      "priority": 2,
+      "title": "Service module fairing separation",
+      "subject": "screen",
+      "subject_alternates": [
+        "spacecraft",
+        "fairing"
+      ],
+      "reason": "Covers stage separation request with onboard VIS-FOV view and confirmation that service module fairing panels separated about 3 minutes into flight.",
+      "verified": true,
+      "start": 1284.0,
+      "end": 1302.0
+    }
+  ],
+  "dropped": [],
+  "proposed": [
+    {
+      "start_seg": 182,
+      "end_seg": 186,
+      "priority": 1,
+      "title": "Engine ignition and liftoff",
+      "subject": "rocket",
+      "subject_alternates": [
+        "flame",
+        "exhaust plume"
+      ],
+      "reason": "Core request for engine ignition and liftoff in live footage, with hydrogen burnoff igniters, RS-25 start, booster ignition and night liftoff at excitement 9-10."
+    },
+    {
+      "start_seg": 206,
+      "end_seg": 209,
+      "priority": 1,
+      "title": "Solid rocket booster separation",
+      "subject": "flame",
+      "subject_alternates": [
+        "exhaust plume",
+        "rocket"
+      ],
+      "reason": "Core request for booster separation live, showing twin 177-foot boosters cutting off and jettisoning with two plumes moving apart at excitement 8-9."
+    },
+    {
+      "start_seg": 194,
+      "end_seg": 197,
+      "priority": 2,
+      "title": "Engines throttle through Max Q",
+      "subject": "plume",
+      "subject_alternates": [
+        "flame",
+        "rocket"
+      ],
+      "reason": "Shows how vehicle is performing live: four core engines throttling down for Max Q then back to maximum thrust at 1,420 mph."
+    },
+    {
+      "start_seg": 214,
+      "end_seg": 216,
+      "priority": 2,
+      "title": "Service module fairing separation",
+      "subject": "screen",
+      "subject_alternates": [
+        "spacecraft",
+        "fairing"
+      ],
+      "reason": "Covers stage separation request with onboard VIS-FOV view and confirmation that service module fairing panels separated about 3 minutes into flight."
+    },
+    {
+      "start_seg": 158,
+      "end_seg": 160,
+      "priority": 3,
+      "title": "RS-25 gimbal steering test",
+      "subject": "engine",
+      "subject_alternates": [
+        "rocket",
+        "nozzle"
+      ],
+      "reason": "Real engineering moment in terminal count live: close-up of four RS-25 nozzles gimballing to test steering before launch."
+    }
+  ],
+  "verification": [
+    {
+      "clip": "RS-25 gimbal steering test",
+      "segments": [
+        158,
+        160
+      ],
+      "shows": "Live close-up of four RS-25 engines gimballing on the SLS core stage during terminal count",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    },
+    {
+      "clip": "Engine ignition and liftoff",
+      "segments": [
+        182,
+        186
+      ],
+      "shows": "Live nighttime footage of SLS RS-25 engine and booster ignition with hydrogen burnoff, followed by liftoff and ascent",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.98
+    },
+    {
+      "clip": "Engines throttle through Max Q",
+      "segments": [
+        194,
+        197
+      ],
+      "shows": "A rocket ascends at night with a bright engine plume while flight commentary describes four core engines throttling down for Max Q and back to maximum thrust",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    },
+    {
+      "clip": "Solid rocket booster separation",
+      "segments": [
+        206,
+        209
+      ],
+      "shows": "Live nighttime footage of twin solid rocket boosters separating from the core stage with two bright plumes moving apart",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.97
+    },
+    {
+      "clip": "Service module fairing separation",
+      "segments": [
+        214,
+        216
+      ],
+      "shows": "Onboard VIS-FOV live camera shows service module fairing panels separating with telemetry overlay and voice confirmation about 3 minutes into flight",
+      "footage": "live",
+      "hard_rule_broken": "",
+      "verdict": "pass",
+      "new_title": "",
+      "issue": "",
+      "note": "",
+      "confidence": 0.96
+    }
+  ],
+  "playlist": "data/reels/artemis_launch/subscriber1/playlist.m3u8",
+  "seconds_taken": 89.7,
+  "mp4": "data/reels/artemis_launch/subscriber1/reel.mp4",
+  "cover": "data/reels/artemis_launch/subscriber1/cover.jpg"
+}

@@ -27,8 +27,9 @@ Running log of what was built during the hackathon, and what's next. Each new wo
 - [x] `agent/vertical.py` — SAM 3.1 follow-cam 9:16 version. **Parked (opt-in `--vertical`)**: crops cut off speakers' name cards in the news briefing; reels go out 16:9
 - [x] README: architecture, how to run, Meta models, built-during-hackathon, credits, vision (platforms, contextual consent-based sponsorships)
 - [x] Second subscriber **Subscriber 2** (current affairs: announcements, plans, dates; skip launch footage, politics and budgets) + source **NASA News · current affairs** with the Artemis Acceleration News Conference (Oct 23, 2026), trimmed to the opening statements (~28.5 min, clean cut at the Kshatriya → Parsons handover)
-- [ ] Timeline: talks (briefings, interviews) split by topic/announcement, not by speaker; no anchor for talks; `kind: event|talk`
-- [ ] `common/voice.py` + bot — voice notes (OGG/Opus → 16 kHz WAV → Muse Voice Transcribe) for onboarding and follow-ups; "🎙 I heard: …" reply; `voice` event in the live feed
+- [x] Timeline: talks split by topic/announcement, not by speaker; no anchor for talks; `kind: event|talk`. Briefing: 4 speaker blocks → 19 headline moments; Subscriber 2's reel kept 2027/2028 news and skipped China, "too big to fail" and Congress remarks. Merged clips keep one caption
+- [x] `common/voice.py` + bot — voice notes (OGG/Opus → 16 kHz WAV → Muse Voice Transcribe) for onboarding and follow-ups; "🎙 I heard: …" reply; `voice` event in the live feed. Tested: two real voice notes transcribed word for word (~3 s each); "Show me where they talk about the 2028 Moon landing" → answer + clip
+- [x] Control Room light theme (white + blue accent)
 - Optional: Spark Open on partner inference (needs Baseten/Modal credits)
 
 ## Demo story (decided)

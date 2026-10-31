@@ -1,0 +1,324 @@
+{
+  "video_id": "artemis_launch",
+  "title": "Artemis I Night Launch - SLS and Orion to the Moon",
+  "kind": "event",
+  "anchor": {
+    "label": "liftoff",
+    "segment": 184,
+    "time": 1104.0
+  },
+  "model": "muse-spark-1.3",
+  "moments": [
+    {
+      "start_seg": 0,
+      "end_seg": 51,
+      "title": "Countdown hold awaiting new T-0",
+      "summary": "The broadcast opens on the SLS on the pad at night while launch control works upper-stage valve issues and explains launch-window cutouts. Teams await the mission management poll to set a new T-zero.",
+      "type": "countdown",
+      "footage": "live",
+      "excitement": 3,
+      "tags": [
+        "SLS",
+        "countdown hold",
+        "firing room",
+        "T-zero"
+      ],
+      "evidence": "speech: 'we are starting to track to a T-zero close to around a quarter till top of the hour' with live pad and firing room views",
+      "id": "m000",
+      "start": 0.0,
+      "end": 312.0,
+      "t_rel": -1104.0
+    },
+    {
+      "start_seg": 52,
+      "end_seg": 83,
+      "title": "Final go/no-go polls and go to resume count",
+      "summary": "NASA test director Jeff Spaulding polls the launch team, all stations report go with no constraints. Launch Director Charlie Blackwell-Thompson gives go to resume count and launch Artemis One.",
+      "type": "mission control",
+      "footage": "live",
+      "excitement": 7,
+      "tags": [
+        "go poll",
+        "launch director",
+        "terminal count"
+      ],
+      "evidence": "speech: 'Artemis Generation, this is for you. At this time, I give you a go to resume count and launch Artemis One' then 'Three, two, one, mark'",
+      "id": "m001",
+      "start": 312.0,
+      "end": 504.0,
+      "t_rel": -792.0
+    },
+    {
+      "start_seg": 84,
+      "end_seg": 180,
+      "title": "Terminal countdown T-10 minutes to liftoff",
+      "summary": "The clock counts from T-10 minutes through core-stage pressurization, FTS arming, engine-bleed checks, engine gimbal test, transfer to internal power and handover to autonomous launch sequencer.",
+      "type": "countdown",
+      "footage": "live",
+      "excitement": 7,
+      "tags": [
+        "terminal count",
+        "GLS",
+        "ALS",
+        "RS-25"
+      ],
+      "evidence": "speech: 'T-minus 10 minutes and counting' to 'we are go for ALS. The Space Launch System is now counting down to liftoff of Orion'",
+      "id": "m002",
+      "start": 504.0,
+      "end": 1086.0,
+      "t_rel": -600.0
+    },
+    {
+      "start_seg": 181,
+      "end_seg": 187,
+      "title": "Engine ignition and liftoff",
+      "summary": "Hydrogen burnoff igniters fire, the four RS-25 engines start and boosters ignite. Artemis I lifts off the pad in a blaze of light, rising together back to the Moon.",
+      "type": "launch",
+      "footage": "live",
+      "excitement": 10,
+      "tags": [
+        "liftoff",
+        "ignition",
+        "RS-25",
+        "boosters"
+      ],
+      "evidence": "speech: 'Four stage engine start. Three, two, one. Boosters ignition. And liftoff of Artemis One.'",
+      "id": "m003",
+      "start": 1086.0,
+      "end": 1128.0,
+      "t_rel": -18.0
+    },
+    {
+      "start_seg": 188,
+      "end_seg": 203,
+      "title": "Powered ascent through Max Q",
+      "summary": "SLS climbs on 8.8 million pounds of thrust, throttling down and back up through Max Q. Houston reports good control and roll while speed builds past 2,800 mph.",
+      "type": "ascent",
+      "footage": "live",
+      "excitement": 7,
+      "tags": [
+        "ascent",
+        "Max Q",
+        "Mission Control Houston"
+      ],
+      "evidence": "speech: 'Max Q at about one minute and nine seconds' and 'traveling over 2,800 miles per hour'",
+      "id": "m004",
+      "start": 1128.0,
+      "end": 1224.0,
+      "t_rel": 24.0
+    },
+    {
+      "start_seg": 204,
+      "end_seg": 211,
+      "title": "Solid rocket booster separation",
+      "summary": "About two minutes eleven seconds into flight the twin 177-foot boosters cut off and jettison, leaving the core stage on four RS-25s continuing to power Orion.",
+      "type": "separation",
+      "footage": "live",
+      "excitement": 8,
+      "tags": [
+        "SRB sep",
+        "booster jettison",
+        "core stage"
+      ],
+      "evidence": "speech: 'Confirmation that the solid rocket boosters have separated' with two plumes moving apart in night sky",
+      "id": "m005",
+      "start": 1224.0,
+      "end": 1272.0,
+      "t_rel": 120.0
+    },
+    {
+      "start_seg": 212,
+      "end_seg": 220,
+      "title": "Service module fairing and LAS separation",
+      "summary": "Telemetry cameras show the service module fairing panels and launch abort system pyros firing and separating about three minutes into flight as Orion heads to orbit.",
+      "type": "separation",
+      "footage": "mixed",
+      "excitement": 7,
+      "tags": [
+        "fairing",
+        "LAS",
+        "telemetry"
+      ],
+      "evidence": "speech: 'confirmation that the service module fairing has separated' and 'launch abort system pyros have fired' on VIS-FOV view",
+      "id": "m006",
+      "start": 1272.0,
+      "end": 1326.0,
+      "t_rel": 168.0
+    },
+    {
+      "start_seg": 221,
+      "end_seg": 265,
+      "title": "Core stage burn to orbit - animation",
+      "summary": "Animation follows the SLS core stage firing over Earth at up to 12,800+ mph while Houston monitors four good engines toward main engine cutoff at about eight minutes.",
+      "type": "ascent",
+      "footage": "animation",
+      "excitement": 5,
+      "tags": [
+        "core stage",
+        "MECO preview",
+        "animation"
+      ],
+      "evidence": "visual: tan SLS core with cyan-blue engine plumes over Earth's night side with timeline LIFTOFF MAX Q SRB SEP",
+      "id": "m007",
+      "start": 1326.0,
+      "end": 1596.0,
+      "t_rel": 222.0
+    },
+    {
+      "start_seg": 266,
+      "end_seg": 271,
+      "title": "MECO and core stage separation",
+      "summary": "Core stage main engine cutoff is confirmed with Orion in Earth orbit, followed by core stage separation leaving Orion and the ICPS flying free.",
+      "type": "separation",
+      "footage": "animation",
+      "excitement": 8,
+      "tags": [
+        "MECO",
+        "core separation",
+        "ICPS",
+        "orbit"
+      ],
+      "evidence": "speech: 'Core stage main engine cutoff, Orion is now in Earth's orbit' and call for core stage separation",
+      "id": "m008",
+      "start": 1596.0,
+      "end": 1632.0,
+      "t_rel": 492.0
+    },
+    {
+      "start_seg": 272,
+      "end_seg": 306,
+      "title": "Watching liftoff from Kennedy - hosts react",
+      "summary": "Hosts Megan and astronaut Kayla Barron describe the night sky lighting up, the ground shaking and the emotional liftoff, then toss to the firing room for the launch director.",
+      "type": "interview",
+      "footage": "mixed",
+      "excitement": 4,
+      "tags": [
+        "reaction",
+        "Kennedy",
+        "hosts"
+      ],
+      "evidence": "speech: 'it lit up the night sky and it just shook everything' and 'trajectory looked like it was flying towards the moon'",
+      "id": "m009",
+      "start": 1632.0,
+      "end": 1842.0,
+      "t_rel": 528.0
+    },
+    {
+      "start_seg": 307,
+      "end_seg": 364,
+      "title": "Launch director's speech and tie-cut tradition",
+      "summary": "Launch Director Charlie Blackwell-Thompson tells her team they earned their place in history on the first Artemis launch, then takes part in the tie-cutting tradition and hugs.",
+      "type": "speech",
+      "footage": "live",
+      "excitement": 5,
+      "tags": [
+        "Blackwell-Thompson",
+        "firing room",
+        "celebration"
+      ],
+      "evidence": "speech: 'You have earned your place in history. You were part of a first. The first launch of Artemis.'",
+      "id": "m010",
+      "start": 1842.0,
+      "end": 2190.0,
+      "t_rel": 738.0
+    },
+    {
+      "start_seg": 365,
+      "end_seg": 456,
+      "title": "Solar array deployment and orbit update",
+      "summary": "Mission Control Houston tracks Orion and ICPS at 16,000+ mph while four solar arrays are released, unfold live and latch. All four deployed is confirmed as teams look to the perigee raise maneuver.",
+      "type": "mission control",
+      "footage": "mixed",
+      "excitement": 6,
+      "tags": [
+        "solar arrays",
+        "Orion",
+        "perigee raise"
+      ],
+      "evidence": "speech: 'all four solar arrays have been released' to 'we have confirmation all four arrays are deployed' with live array view",
+      "id": "m011",
+      "start": 2190.0,
+      "end": 2742.0,
+      "t_rel": 1086.0
+    },
+    {
+      "start_seg": 457,
+      "end_seg": 502,
+      "title": "Why the Moon - south pole explainer",
+      "summary": "Presenter Dan Hewitt at the Moon board recaps Apollo, LRO and LCROSS water-ice discoveries, 13 Artemis III south-pole sites and using the Moon to learn to live off the land for Mars.",
+      "type": "explainer",
+      "footage": "mixed",
+      "excitement": 3,
+      "tags": [
+        "Moon",
+        "south pole",
+        "water ice",
+        "Artemis"
+      ],
+      "evidence": "visual: large Moon map with Apollo sites and south-pole topography; speech about 'in situ resource utilization' and water for fuel",
+      "id": "m012",
+      "start": 2742.0,
+      "end": 3018.0,
+      "t_rel": 1638.0
+    },
+    {
+      "start_seg": 503,
+      "end_seg": 539,
+      "title": "Red crew interview - fixing the hydrogen leak",
+      "summary": "Trent, Chad and Billy of the red crew describe entering the blast danger zone for the first time to torque down a loose hydrogen valve packing, enabling launch after 37 years of training.",
+      "type": "interview",
+      "footage": "studio",
+      "excitement": 4,
+      "tags": [
+        "red crew",
+        "hydrogen leak",
+        "pad repair"
+      ],
+      "evidence": "speech: 'red crew was sent out... small leak on a hydrogen valve' and 'tightened her up' on zero deck with rocket creaking",
+      "id": "m013",
+      "start": 3018.0,
+      "end": 3240.0,
+      "t_rel": 1914.0
+    },
+    {
+      "start_seg": 540,
+      "end_seg": 567,
+      "title": "Mission Control update - imagery team",
+      "summary": "Leah previews the perigee raise and translunar injection burns and introduces the Orion imagery team monitoring cameras that will livestream from the vicinity of the Moon.",
+      "type": "mission control",
+      "footage": "mixed",
+      "excitement": 3,
+      "tags": [
+        "perigee raise",
+        "TLI",
+        "imagery",
+        "cameras"
+      ],
+      "evidence": "speech: 'about 17 minutes until the perigee raise maneuver' and 'first time live streaming digital video from vicinity of the Moon'",
+      "id": "m014",
+      "start": 3240.0,
+      "end": 3408.0,
+      "t_rel": 2136.0
+    },
+    {
+      "start_seg": 568,
+      "end_seg": 599,
+      "title": "CubeSats and science inside Orion",
+      "summary": "Hosts and scientists explain ten shoebox-size secondary-payload CubeSats, lunar, solar and biology experiments and space radiation studies paving the way for deeper exploration.",
+      "type": "explainer",
+      "footage": "mixed",
+      "excitement": 3,
+      "tags": [
+        "CubeSats",
+        "secondary payloads",
+        "science",
+        "biology"
+      ],
+      "evidence": "speech: 'inside of Orion are ten CubeSats ... secondary payloads' with model and animations of deploying sails",
+      "id": "m015",
+      "start": 3408.0,
+      "end": 3600.0,
+      "t_rel": 2304.0
+    }
+  ]
+}
