@@ -1,4 +1,4 @@
-"""Split a long video into fixed-length segments for Watchmate.
+"""Split a long video into fixed-length segments for WatchMate.
 
 One encode produces two views of the same segments:
 
@@ -162,7 +162,7 @@ def chunk(src: Path, out_root: Path, seconds: int, video_id: str | None) -> Path
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Split a video into segments for Watchmate.")
+    p = argparse.ArgumentParser(description="Split a video into segments for WatchMate.")
     p.add_argument("input", type=Path, help="source video, e.g. data/raw/artemis_demo.mp4")
     p.add_argument("--out", type=Path, default=Path("data/processed"), help="output root")
     p.add_argument("--segment-seconds", type=int, default=6, help="segment length (default 6)")

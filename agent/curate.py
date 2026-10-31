@@ -26,7 +26,7 @@ from pathlib import Path
 from common.muse import get_client, parse_json
 from timeline.build import compact_line, fmt_time
 
-PROMPT = """You are Watchmate, a personal highlights agent. You watched a whole broadcast for a fan
+PROMPT = """You are WatchMate, a personal highlights agent. You watched a whole broadcast for a fan
 and now cut their personal reel.
 
 FAN PREFERENCES:

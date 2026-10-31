@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 URL = "https://api.meta.ai/v1/asr/transcribe"
 MODEL = "muse-voice-transcribe-1.0"
 # names the generic recogniser might otherwise mishear in this domain (a hint, not a guarantee)
-KEYWORDS = ["Watchmate", "Artemis", "Orion", "SLS", "RS-25", "Max Q", "NASA", "Isaacman", "Kshatriya"]
+KEYWORDS = ["WatchMate", "Artemis", "Orion", "SLS", "RS-25", "Max Q", "NASA", "Isaacman", "Kshatriya"]
 
 
 class TranscribeError(RuntimeError):

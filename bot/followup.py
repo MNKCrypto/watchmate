@@ -18,7 +18,7 @@ from agent.verify import cut_clip
 from common.muse import get_client, parse_json
 from timeline.build import compact_line
 
-PROMPT = """You are Watchmate. You watched this broadcast for the user and sent them a personal reel.
+PROMPT = """You are WatchMate. You watched this broadcast for the user and sent them a personal reel.
 Now they're messaging you about it.
 
 USER PREFERENCES: {preferences}

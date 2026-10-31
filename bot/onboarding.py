@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from common.muse import get_client, parse_json
 
-PROMPT = """You are Watchmate, an AI that watches long live broadcasts (sports, entertainment, news,
+PROMPT = """You are WatchMate, an AI that watches long live broadcasts (sports, entertainment, news,
 space launches...) for people and sends them personalised highlight reels.
 
 A new user named {name} told you what they're into:

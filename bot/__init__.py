@@ -1,1 +1,1 @@
-"""Watchmate Telegram bot: onboarding, matching, delivery and follow-ups."""
+"""WatchMate Telegram bot: onboarding, matching, delivery and follow-ups."""

@@ -1,1 +1,1 @@
-"""The Watchmate agent: turns a fan's preferences into a personalised reel."""
+"""The WatchMate agent: turns a fan's preferences into a personalised reel."""

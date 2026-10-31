@@ -1,4 +1,4 @@
-"""Watchmate Control Room — the operator console, plus the watcher agent.
+"""WatchMate Control Room — the operator console, plus the watcher agent.
 
     python -m control.server            # then open http://localhost:8000
 
@@ -97,7 +97,7 @@ def main() -> None:
     sources.load()  # creates data/sources.json and the source folders on first run
     if not args.no_watcher:
         watcher.start()
-    print(f"🎛  Watchmate Control Room: http://localhost:{args.port}")
+    print(f"🎛  WatchMate Control Room: http://localhost:{args.port}")
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
 
 

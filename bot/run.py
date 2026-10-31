@@ -1,10 +1,10 @@
-"""Run the Watchmate Telegram bot (long polling — no public URL needed).
+"""Run the WatchMate Telegram bot (long polling — no public URL needed).
 
     python -m bot.run
 
 Commands users can send:
-    /start      onboarding: tell Watchmate what you're into
-    /profile    show what Watchmate is watching for
+    /start      onboarding: tell WatchMate what you're into
+    /profile    show what WatchMate is watching for
     /interests  change your interests
 Anything else: a follow-up about the last reel (question, "show me...", "make it 30 seconds").
 Voice notes work everywhere a typed message does (Muse Voice Transcribe turns them into text).
@@ -25,7 +25,7 @@ from common.voice import TranscribeError, transcribe
 from messaging.telegram import TelegramError, download_file, get_updates, send_text, send_typing, send_video
 from scripts.send_reel import deliver
 
-WELCOME = ("👋 Hi {name}, I'm *Watchmate*.\n\n"
+WELCOME = ("👋 Hi {name}, I'm *WatchMate*.\n\n"
            "I watch long broadcasts for you (launches, matches, shows, news) and send you just the "
            "moments you care about.\n\nTell me in your own words — type it or send a voice note 🎙: "
            "what are you into, and what should I skip?")
@@ -102,7 +102,7 @@ def handle(msg: dict) -> None:
         return
     if not store.allowed(chat_id):
         print(f"⛔ {name} ({chat_id}) not on ALLOWED_CHAT_IDS — ignored")
-        send_text(chat_id, "🙏 Watchmate is a private hackathon demo right now, so I can't chat yet. "
+        send_text(chat_id, "🙏 WatchMate is a private hackathon demo right now, so I can't chat yet. "
                   "Thanks for stopping by!", markdown=False)
         return
     if is_voice:  # only after the allowlist check, so strangers can't spend transcription credits
@@ -131,7 +131,7 @@ def handle(msg: dict) -> None:
 
 
 def main() -> None:
-    print("Watchmate bot running. Press Ctrl+C to stop.")
+    print("WatchMate bot running. Press Ctrl+C to stop.")
     offset = None
     while True:
         try:
