@@ -153,6 +153,13 @@ examples/   real outputs from one end-to-end run: timelines, reels, covers, deci
 - **Private demo.** The bot only serves chat ids listed in `ALLOWED_CHAT_IDS`; everyone else gets a polite reply and nothing is stored or spent.
 - Processing is near-real-time per segment (~8 s per 6 s segment, parallelised), not yet a true live-stream ingest.
 
+**Next steps before real-world use**
+
+- Wait for a new video to finish copying before processing it, and retry segments that fail analysis.
+- Mark clips the self-check couldn't verify as "unchecked" instead of passed.
+- Harden the Control Room before running it anywhere but localhost (authentication, request checks).
+- Keep the original reel when a follow-up rebuilds it; cap voice-note length; trim follow-up prompts.
+
 ## Where this goes
 
 Any long video, re-cut for each viewer and delivered where they already are — sports, entertainment, news. A league, broadcaster or streaming library plugs in as a source; every viewer gets their own version. And because every subscriber tells WatchMate exactly what they care about, it is a natural channel for **contextual, consent-based sponsorships**: the right brand next to the right moment, using only what the viewer chose to share.

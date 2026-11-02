@@ -149,7 +149,9 @@ def main() -> None:
                         except TelegramError:
                             pass
         except (TelegramError, OSError) as e:
-            print(f"Polling error: {e}; retrying in 5s")
+            # print the error type only: network errors from `requests` include the request URL,
+            # and Telegram's URL contains the bot token
+            print(f"Polling error ({type(e).__name__}); retrying in 5s")
             time.sleep(5)
 
 

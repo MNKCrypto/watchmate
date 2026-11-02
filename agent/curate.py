@@ -7,7 +7,7 @@ padding, no overlaps, time budget) and writes:
 
     data/reels/<video_id>/<profile>/reel.json        clips, reasons, recap
     data/reels/<video_id>/<profile>/playlist.m3u8    streamable reel (points at existing segments)
-    data/reels/<video_id>/<profile>/reel.mp4         single file for any player (and WhatsApp)
+    data/reels/<video_id>/<profile>/reel.mp4         single file for any player (sent on Telegram)
 
 Usage:
     python -m agent.curate --profile profiles/engineer.json            # picks, self-checks, exports reel.mp4 + cover
@@ -67,7 +67,7 @@ Return ONLY JSON:
   "recap": "2-3 short sentences (max 60 words) to the fan in second person; plain and specific, no quotes, no jargon lists, no metaphors or personification"
 }}"""
 
-RECAP_PROMPT = """Write a short personal recap for a fan, to send on WhatsApp.
+RECAP_PROMPT = """Write a short personal recap for a fan, to send with their highlight reel.
 Fan preferences: {preferences}
 
 Their reel contains ONLY these clips, in order:

@@ -155,8 +155,10 @@ def verify_clips(client, clips: list[dict], preferences: str, budget_segments: i
 
         issue = result.get("hard_rule_broken") or result.get("issue", "failed check")
         log(f"  ✗ {when} {clip['title']} — REJECTED: {issue}")
-        used = [(c["start_seg"], c["end_seg"]) for c in final + clips if c is not clip]
-        room = budget_segments - sum(c["end_seg"] - c["start_seg"] + 1 for c in final + clips if c is not clip)
+        # the reel as it stands: clips already checked (final) + clips still to check (after this one)
+        upcoming = clips[clips.index(clip) + 1:]
+        used = [(c["start_seg"], c["end_seg"]) for c in final + upcoming]
+        room = budget_segments - sum(c["end_seg"] - c["start_seg"] + 1 for c in final + upcoming)
         repl = find_replacement(client, clip, issue, preferences, used, room, rows, len(segs))
         if repl:
             r2 = check_clip(client, repl, preferences, video_dir, manifest)

@@ -24,3 +24,7 @@ __pycache__/
 
 # Files saved by the Claude app (previews, not project files)
 Claude outputs/
+
+# Added by ggshield
+.cache_ggshield
+demo/
