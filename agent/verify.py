@@ -91,10 +91,13 @@ def check_clip(client, clip: dict, preferences: str, video_dir: Path, manifest: 
             )
         finally:
             delete_file(client, file_id)
-    result = parse_json(resp.output_text) or {"verdict": "pass", "issue": "checker returned no JSON",
+    # If the checker's answer can't be read, say so: the clip stays in the reel but is marked
+    # "unchecked" instead of being reported as verified.
+    result = parse_json(resp.output_text) or {"verdict": "unchecked", "issue": "checker returned no JSON",
                                                "confidence": 0}
-    if result.get("verdict") not in ("pass", "retitle", "fail"):
-        result["verdict"] = "pass"
+    if result.get("verdict") not in ("pass", "retitle", "fail", "unchecked"):
+        result["issue"] = f"checker returned an unknown verdict: {result.get('verdict')!r}"
+        result["verdict"] = "unchecked"
     if result["verdict"] == "retitle" and not result.get("new_title"):
         result["verdict"] = "pass"  # nothing to rename it to; keep as is
     if result.get("hard_rule_broken"):
@@ -140,6 +143,12 @@ def verify_clips(client, clips: list[dict], preferences: str, budget_segments: i
         entry = {"clip": clip["title"], "segments": [clip["start_seg"], clip["end_seg"]], **result}
         when = fmt_time(segs[clip["start_seg"]]["start"])
         note = f"  (note: {result['note']})" if result.get("note") else ""
+        if result["verdict"] == "unchecked":
+            log(f"  ? {when} {clip['title']} — could not be checked ({result.get('issue', '')}); kept, marked unchecked")
+            final.append({**clip, "verified": False, "unchecked": True})
+            entry["action"] = "kept, unchecked"
+            report.append(entry)
+            continue
         if result["verdict"] == "pass":
             log(f"  ✓ {when} {clip['title']} — {result.get('shows', '')}{note}")
             final.append({**clip, "verified": True})
@@ -164,7 +173,7 @@ def verify_clips(client, clips: list[dict], preferences: str, budget_segments: i
             r2 = check_clip(client, repl, preferences, video_dir, manifest)
             if r2["verdict"] == "retitle":
                 repl = {**repl, "title": r2["new_title"]}
-            if r2["verdict"] != "fail":
+            if r2["verdict"] not in ("fail", "unchecked"):  # a replacement must be positively checked
                 log(f"    ↳ replaced with {fmt_time(segs[repl['start_seg']]['start'])} {repl['title']} ✓")
                 final.append({**repl, "verified": True, "replaces": clip["title"]})
                 entry["action"] = f"replaced with '{repl['title']}'"

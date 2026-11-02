@@ -16,6 +16,8 @@ def run(clips, verdicts, replacement=None, budget=10):
     """Run verify_clips with fake checker/replacer. Returns (final, report, calls to find_replacement)."""
     def fake_check(client, c, *a, **k):
         v = verdicts[c["title"]]
+        if isinstance(v, dict):  # a raw checker result, to test check_clip-level outcomes
+            return v
         return {"verdict": v, "issue": "x", "shows": "", "new_title": "Better caption" if v == "retitle" else ""}
     calls = []
 
@@ -58,6 +60,41 @@ class VerifyTest(unittest.TestCase):
         final, report, _ = run([clip(1, 2, "B")], {"B": "fail", "R": "fail"}, replacement=clip(40, 41, "R"))
         self.assertEqual(final, [])
         self.assertEqual(report[0]["action"], "dropped")
+
+    def test_unreadable_check_keeps_the_clip_but_never_reports_it_verified(self):
+        final, report, _ = run([clip(1, 2, "A")], {"A": {"verdict": "unchecked", "issue": "checker returned no JSON"}})
+        self.assertEqual(len(final), 1)
+        self.assertFalse(final[0]["verified"])
+        self.assertTrue(final[0]["unchecked"])
+        self.assertEqual(report[0]["action"], "kept, unchecked")
+
+    def test_unchecked_replacement_is_not_used(self):
+        final, report, _ = run([clip(1, 2, "B")], {"B": "fail", "R": "unchecked"}, replacement=clip(40, 41, "R"))
+        self.assertEqual(final, [])
+        self.assertEqual(report[0]["action"], "dropped")
+
+
+class CheckClipTest(unittest.TestCase):
+    """check_clip's handling of the checker's raw answer (the model call is faked)."""
+
+    def verdict_for(self, output_text):
+        resp = mock.Mock(output_text=output_text)
+        client = mock.Mock()
+        client.responses.create.return_value = resp
+        with mock.patch.object(V, "cut_clip", lambda *a, **k: Path("clip.mp4")), \
+             mock.patch.object(V, "video_part", lambda *a, **k: ({}, None)), \
+             mock.patch.object(V, "delete_file", lambda *a, **k: None):
+            return V.check_clip(client, clip(1, 2, "A"), "prefs", Path("."), MANIFEST)["verdict"]
+
+    def test_unreadable_or_unknown_answers_are_unchecked_not_passed(self):
+        self.assertEqual(self.verdict_for("sorry, no JSON"), "unchecked")
+        self.assertEqual(self.verdict_for('{"verdict": "maybe"}'), "unchecked")
+
+    def test_broken_hard_rule_always_fails(self):
+        self.assertEqual(self.verdict_for('{"verdict": "pass", "hard_rule_broken": "no politics"}'), "fail")
+
+    def test_retitle_without_a_new_title_is_a_pass(self):
+        self.assertEqual(self.verdict_for('{"verdict": "retitle", "new_title": ""}'), "pass")
 
 
 if __name__ == "__main__":
