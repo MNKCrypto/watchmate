@@ -92,13 +92,15 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--port", type=int, default=8000)
+    p.add_argument("--host", default="127.0.0.1",
+                   help="bind address; 0.0.0.0 only inside a container (the console has no login)")
     p.add_argument("--no-watcher", action="store_true", help="console only, don't watch sources")
     args = p.parse_args()
     sources.load()  # creates data/sources.json and the source folders on first run
     if not args.no_watcher:
         watcher.start()
     print(f"🎛  WatchMate Control Room: http://localhost:{args.port}")
-    ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
+    ThreadingHTTPServer((args.host, args.port), Handler).serve_forever()
 
 
 if __name__ == "__main__":

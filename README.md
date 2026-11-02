@@ -14,7 +14,7 @@ Tell WatchMate once, in your own words — typed or as a voice note — what you
 
 Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build for Your World*) with Meta's Muse models.
 
-> 🎬 Demo video: *(link added at submission)*
+> 🎬 Demo video: *(link added at submission)* · 🌐 Live page (replay of a real run, no install): **https://mnkcrypto.github.io/watchmate/**
 
 ## For judges
 
@@ -26,7 +26,7 @@ Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build
 |---|---|---|
 | **Creativity** | One video → a different reel per person, chosen from their own words (typed or spoken). Skips are explained ("all briefing talk with no engine ignition…"). Follow-ups answer with the exact clip. | [`examples/`](examples/README.md), [`bot/matcher.py`](bot/matcher.py), [`bot/followup.py`](bot/followup.py) |
 | **Technical ambition** | Muse Spark watches **every 6-second segment, video and audio together** (600 calls for an hour, parallel and resumable); the whole broadcast is reasoned over in **one long-context call** (event vs talk, anchor-relative T−/T+ time); every chosen clip is **cut and re-watched** (pass / retitle / replace); Muse Image covers; Muse Voice Transcribe for voice notes; autonomous watcher; Control Room live feed. | [`ingest/analyze.py`](ingest/analyze.py), [`timeline/build.py`](timeline/build.py), [`agent/curate.py`](agent/curate.py), [`agent/verify.py`](agent/verify.py), [`control/watcher.py`](control/watcher.py) |
-| **Whether it works** | A clean end-to-end run (Oct 31): 60-min launch → Subscriber 1: 5 clips / 114 s, Subscriber 2: 4 clips / 60 s; 28.6-min briefing → Subscriber 1 skipped with a reason, Subscriber 2 served with no politics/budget clips; voice follow-up answered with a clip. Real outputs, unedited. | [`examples/README.md`](examples/README.md), [`examples/decision_log.jsonl`](examples/decision_log.jsonl) |
+| **Whether it works** | A clean end-to-end run (Oct 31): 60-min launch → Subscriber 1: 5 clips / 114 s, Subscriber 2: 4 clips / 60 s; 28.6-min briefing → Subscriber 1 skipped with a reason, Subscriber 2 served with no politics/budget clips; voice follow-up answered with a clip. Real outputs, unedited. | [`examples/README.md`](examples/README.md), [`evals/RESULTS.md`](evals/RESULTS.md) (17/17 checks), [`tests/`](tests/) (23 unit tests, CI) |
 | **Build for Your World** | Two people, same news, different minutes they care about, and neither has five hours. Delivered where they already are (Telegram), in their own words. | Demo video (link above) · [`bot/run.py`](bot/run.py) |
 
 **By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22 min from new video to two delivered reels.
@@ -133,6 +133,25 @@ python -m scripts.send_reel --reel data/reels/artemis_demo/engineer/reel.json
 python -m bot.publish --video-dir data/processed/artemis_demo   # match + serve all subscribers
 ```
 
+**Tests and evaluation** (no API keys or model calls needed; both run in CI on every push):
+
+```bash
+pip install pytest
+pytest                      # 23 unit tests: clip budgets, self-check replace/drop, isolated failures, allowlist
+python -m evals.evaluate    # checks the real reels in examples/ against each subscriber's own rules
+```
+
+The evaluation ([`evals/RESULTS.md`](evals/RESULTS.md)) checks every reel for: length within the requested budget, every clip self-checked, no clip from a topic the subscriber asked to skip (politics/budget, interviews), live footage for the fan who prefers it — and that each broadcast served or skipped the right people, with a reason.
+
+**Run with Docker** (Python + ffmpeg in one image; secrets stay in your `.env`):
+
+```bash
+docker build -t watchmate .
+docker run --rm -it --env-file .env -v "$PWD/data:/app/data" -v "$PWD/sources:/app/sources" \
+    -p 127.0.0.1:8000:8000 watchmate                      # Control Room + watcher
+docker run --rm -it --env-file .env -v "$PWD/data:/app/data" watchmate python -m bot.run   # Telegram bot
+```
+
 ## Project layout
 
 ```
@@ -144,6 +163,9 @@ control/    server.py · watcher.py · sources.py · static/index.html (Control 
 messaging/  telegram.py
 common/     muse.py (API client) · voice.py (Muse Voice Transcribe) · events.py (decision log)
 examples/   real outputs from one end-to-end run: timelines, reels, covers, decision log
+docs/       public GitHub Pages site: the two reels + an in-browser replay of the real decision log
+evals/      evaluate.py + cases.json: checks the example reels against each subscriber's rules → RESULTS.md
+tests/      unit tests (pytest), run in CI by .github/workflows/tests.yml
 ```
 
 ## Limits (honest)

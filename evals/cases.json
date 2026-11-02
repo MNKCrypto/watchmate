@@ -1,0 +1,25 @@
+{
+  "_about": "What each subscriber asked for, in their own words (see the reel's profile.preferences), turned into checks. Run: python -m evals.evaluate",
+  "reels": [
+    {"reel": "examples/launch/reel_subscriber1.json", "timeline": "examples/launch/timeline.json",
+     "rule": "skip studio chat, crowd shots and interviews",
+     "forbidden_moment_types": ["interview"], "forbidden_footage": ["studio"],
+     "prefers_live": true},
+    {"reel": "examples/launch/reel_subscriber2.json", "timeline": "examples/launch/timeline.json",
+     "rule": "skip politics and budgets",
+     "forbidden_moment_types": ["politics/budget"], "forbidden_footage": []},
+    {"reel": "examples/briefing/reel_subscriber2.json", "timeline": "examples/briefing/timeline.json",
+     "rule": "skip politics and budgets",
+     "forbidden_moment_types": ["politics/budget"], "forbidden_footage": []}
+  ],
+  "matches": [
+    {"video": "artemis_launch", "user": "Subscriber 1", "expected": true,
+     "why": "asked for launches: ignition, liftoff, separations"},
+    {"video": "artemis_launch", "user": "Subscriber 2", "expected": true,
+     "why": "asked for milestones 'like a launch actually happening'"},
+    {"video": "artemis_briefing", "user": "Subscriber 1", "expected": false,
+     "why": "a press briefing has no engine footage and he asked to skip studio chat"},
+    {"video": "artemis_briefing", "user": "Subscriber 2", "expected": true,
+     "why": "asked for major announcements and new dates"}
+  ]
+}
