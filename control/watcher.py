@@ -89,24 +89,46 @@ def process(src: dict, video: Path) -> None:
     log_event("step", step="serve", status="done", **ctx)
 
 
+def ready(video: Path, sizes: dict[str, int]) -> bool:
+    """True once a file has stopped growing: same non-zero size as at the previous poll.
+
+    A large video copied into a source folder takes longer than one poll to arrive, so
+    processing it on first sight could read a half-written file.
+    """
+    try:
+        size = video.stat().st_size
+    except OSError:  # removed or renamed between listing and stat
+        return False
+    key = str(video)
+    stable = size > 0 and sizes.get(key) == size
+    sizes[key] = size
+    return stable
+
+
+def scan_once(sizes: dict[str, int]) -> None:
+    """One pass over every active source: process each new video whose copy has finished."""
+    for src in sources.load():
+        if not src.get("active"):
+            continue
+        for video in sorted(Path(src["folder"]).glob("*.mp4")):
+            key = f"{src['id']}/{video.name}"
+            if key in _seen() or not ready(video, sizes):
+                continue
+            _mark_seen(key)  # mark first, so a failure isn't retried in a loop
+            print(f"🆕 {src['name']}: {video.name}")
+            try:
+                process(src, video)
+            except Exception as e:  # keep watching other sources
+                log_event("error", source=src["name"], file=video.name, error=str(e))
+                print(f"  ✗ {e}")
+
+
 def loop(stop: threading.Event) -> None:
     log_event("watcher", status="started")
     print("👁  Watcher running")
+    sizes: dict[str, int] = {}
     while not stop.is_set():
-        for src in sources.load():
-            if not src.get("active"):
-                continue
-            for video in sorted(Path(src["folder"]).glob("*.mp4")):
-                key = f"{src['id']}/{video.name}"
-                if key in _seen():
-                    continue
-                _mark_seen(key)  # mark first, so a failure isn't retried in a loop
-                print(f"🆕 {src['name']}: {video.name}")
-                try:
-                    process(src, video)
-                except Exception as e:  # keep watching other sources
-                    log_event("error", source=src["name"], file=video.name, error=str(e))
-                    print(f"  ✗ {e}")
+        scan_once(sizes)
         stop.wait(POLL_SECONDS)
 
 
