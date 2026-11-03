@@ -1,6 +1,6 @@
 # WatchMate
 
-**An AI agent that watches long videos for you and sends each person their own highlight reel.**
+**A multimodal video-understanding agent: Muse Spark watches long videos — picture and sound together — and sends each person their own highlight reel.**
 
 ### The problem: one highlight reel for everyone
 
@@ -29,7 +29,7 @@ Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build
 | **Whether it works** | A clean end-to-end run (Oct 31): 60-min launch → Subscriber 1: 5 clips / 114 s, Subscriber 2: 4 clips / 60 s; 28.6-min briefing → Subscriber 1 skipped with a reason, Subscriber 2 served with no politics/budget clips; voice follow-up answered with a clip. Real outputs, unedited. | [`examples/README.md`](examples/README.md), [`evals/RESULTS.md`](evals/RESULTS.md) (17/17 checks), [`tests/`](tests/) (31 unit tests, CI) |
 | **Build for Your World** | Two people, same news, different minutes they care about, and neither has five hours. Delivered where they already are (Telegram), in their own words. | [Demo video](https://youtu.be/IpTAibkjqHI) · [`bot/run.py`](bot/run.py) |
 
-**By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22–23 min from new video to two delivered reels (two measured runs).
+**By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22–23 min from new video to two delivered reels (two measured runs) · watched once, shared by every subscriber ([scaling](#scaling-to-many-viewers)).
 
 ---
 
