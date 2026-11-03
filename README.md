@@ -191,6 +191,29 @@ tests/      unit tests (pytest), run in CI by .github/workflows/tests.yml
 - Harden the Control Room before running it anywhere but localhost (authentication, request checks).
 - Keep the original reel when a follow-up rebuilds it; cap voice-note length; trim follow-up prompts.
 
+## Scaling to many viewers
+
+**The expensive part is shared.** Muse Spark watches each video **once** (~$3–4 per hour of video), and every subscriber reuses that timeline. Each extra subscriber adds only:
+
+- a match decision and clip selection from the shared timeline (text only, a few cents)
+- a self-check of *their* clips (seconds of video, not the whole broadcast)
+- one cover ($0.01)
+
+So 1,000 fans of the same match cost one hour of watching plus about 1,000 × a few cents, not 1,000 hours of watching.
+
+**What changes between this demo and many users:**
+
+| Demo today | At scale |
+|---|---|
+| Subscribers in `data/subscribers.json` | A database |
+| Subscribers served one after another (a failure for one doesn't stop the rest) | A job queue with parallel workers |
+| A model call decides the match for every subscriber | A cheap tag filter first; the model only for likely matches |
+| Every reel built and checked on its own | Reuse clip checks (same clip and same rules → same verdict) and share reels between near-identical profiles |
+| Watched folders as sources | Broadcaster APIs, RSS and live ingest |
+| Telegram sends inline | Queued, rate-limited delivery (Telegram allows ~30 messages/s per bot) |
+
+None of these change the design: watch once, decide per person, check every clip.
+
 ## Where this goes
 
 Any long video, re-cut for each viewer and delivered where they already are — sports, entertainment, news. A league, broadcaster or streaming library plugs in as a source; every viewer gets their own version. And because every subscriber tells WatchMate exactly what they care about, it is a natural channel for **contextual, consent-based sponsorships**: the right brand next to the right moment, using only what the viewer chose to share.
