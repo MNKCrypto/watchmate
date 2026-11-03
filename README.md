@@ -109,6 +109,13 @@ pip install -r requirements.txt
 cp .env.example .env    # MODEL_API_KEY, TELEGRAM_BOT_TOKEN, ALLOWED_CHAT_IDS
 ```
 
+**Try it without any keys (1 minute):** replay the real run from `examples/` in the Control Room.
+
+```bash
+mkdir -p data && cp examples/decision_log.jsonl data/events.jsonl
+python -m control.server    # → http://localhost:8000 (Live feed shows every decision from the real run)
+```
+
 **The full experience (two terminals):**
 
 ```bash
@@ -116,15 +123,18 @@ python -m bot.run           # Telegram bot: onboarding + follow-ups
 python -m control.server    # Control Room + watcher agent → http://localhost:8000
 ```
 
-Send `/start` to your bot, describe what you're into, then publish a video by dropping it into a source folder:
+Send `/start` to your bot. The first time, the bot terminal prints `⛔ <name> (<chat id>) not on ALLOWED_CHAT_IDS`: put that chat id in `.env`, restart the bot, and send `/start` again. Describe what you're into, then publish a video by dropping it into a source folder (created on first run of the Control Room):
 
 ```bash
 cp my_video.mp4 sources/nasa/
 ```
 
+Any MP4 with sound works. The demo used NASA's *Artemis I Live Launch Coverage* from the [NASA Image and Video Library](https://images.nasa.gov/) (see Credits). A 5–10 minute clip is the quickest test (roughly 5 min end to end and under $1); an hour takes ~16–19 min and ~$3–4. To trim one: `ffmpeg -ss 00:10:00 -i input.mp4 -t 600 -c copy my_video.mp4`.
+
 **Step by step (each stage on its own):**
 
 ```bash
+# the later steps default to data/processed/artemis_demo; for another file pass --manifest / --video-dir data/processed/<file name>
 python -m ingest.chunk data/raw/artemis_demo.mp4            # 6 s segments + manifest
 python -m ingest.analyze --reasoning-effort low             # Muse Spark watches every segment
 python -m timeline.build                                    # long-context moments
@@ -180,6 +190,29 @@ tests/      unit tests (pytest), run in CI by .github/workflows/tests.yml
 - Retry segments that fail analysis automatically (today a re-run picks them up).
 - Harden the Control Room before running it anywhere but localhost (authentication, request checks).
 - Keep the original reel when a follow-up rebuilds it; cap voice-note length; trim follow-up prompts.
+
+## Scaling to many viewers
+
+**The expensive part is shared.** Muse Spark watches each video **once** (~$3–4 per hour of video), and every subscriber reuses that timeline. Each extra subscriber adds only:
+
+- a match decision and clip selection from the shared timeline (text only, a few cents)
+- a self-check of *their* clips (seconds of video, not the whole broadcast)
+- one cover ($0.01)
+
+So 1,000 fans of the same match cost one hour of watching plus about 1,000 × a few cents, not 1,000 hours of watching.
+
+**What changes between this demo and many users:**
+
+| Demo today | At scale |
+|---|---|
+| Subscribers in `data/subscribers.json` | A database |
+| Subscribers served one after another (a failure for one doesn't stop the rest) | A job queue with parallel workers |
+| A model call decides the match for every subscriber | A cheap tag filter first; the model only for likely matches |
+| Every reel built and checked on its own | Reuse clip checks (same clip and same rules → same verdict) and share reels between near-identical profiles |
+| Watched folders as sources | Broadcaster APIs, RSS and live ingest |
+| Telegram sends inline | Queued, rate-limited delivery (Telegram allows ~30 messages/s per bot) |
+
+None of these change the design: watch once, decide per person, check every clip.
 
 ## Where this goes
 
