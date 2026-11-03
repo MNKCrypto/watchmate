@@ -14,7 +14,7 @@ Tell WatchMate once, in your own words — typed or as a voice note — what you
 
 Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build for Your World*) with Meta's Muse models.
 
-> 🎬 **Demo video (3 min): https://youtu.be/sWqI4iMUIRo** · 🌐 Live page (replay of a real run, no install): **https://mnkcrypto.github.io/watchmate/** · 🤗 Dataset: **[Naveen1989/watchmate-artemis-examples](https://huggingface.co/datasets/Naveen1989/watchmate-artemis-examples)**
+> 🎬 **Demo video (3 min): https://youtu.be/IpTAibkjqHI** · 🌐 Live page (replay of a real run, no install): **https://mnkcrypto.github.io/watchmate/** · 🤗 Dataset: **[Naveen1989/watchmate-artemis-examples](https://huggingface.co/datasets/Naveen1989/watchmate-artemis-examples)**
 
 ## For judges
 
@@ -27,9 +27,9 @@ Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build
 | **Creativity** | One video → a different reel per person, chosen from their own words (typed or spoken). Skips are explained ("all briefing talk with no engine ignition…"). Follow-ups answer with the exact clip. | [`examples/`](examples/README.md), [`bot/matcher.py`](bot/matcher.py), [`bot/followup.py`](bot/followup.py) |
 | **Technical ambition** | Muse Spark watches **every 6-second segment, video and audio together** (600 calls for an hour, parallel and resumable); the whole broadcast is reasoned over in **one long-context call** (event vs talk, anchor-relative T−/T+ time); every chosen clip is **cut and re-watched** (pass / retitle / replace); Muse Image covers; Muse Voice Transcribe for voice notes; autonomous watcher; Control Room live feed. | [`ingest/analyze.py`](ingest/analyze.py), [`timeline/build.py`](timeline/build.py), [`agent/curate.py`](agent/curate.py), [`agent/verify.py`](agent/verify.py), [`control/watcher.py`](control/watcher.py) |
 | **Whether it works** | A clean end-to-end run (Oct 31): 60-min launch → Subscriber 1: 5 clips / 114 s, Subscriber 2: 4 clips / 60 s; 28.6-min briefing → Subscriber 1 skipped with a reason, Subscriber 2 served with no politics/budget clips; voice follow-up answered with a clip. Real outputs, unedited. | [`examples/README.md`](examples/README.md), [`evals/RESULTS.md`](evals/RESULTS.md) (17/17 checks), [`tests/`](tests/) (31 unit tests, CI) |
-| **Build for Your World** | Two people, same news, different minutes they care about, and neither has five hours. Delivered where they already are (Telegram), in their own words. | [Demo video](https://youtu.be/sWqI4iMUIRo) · [`bot/run.py`](bot/run.py) |
+| **Build for Your World** | Two people, same news, different minutes they care about, and neither has five hours. Delivered where they already are (Telegram), in their own words. | [Demo video](https://youtu.be/IpTAibkjqHI) · [`bot/run.py`](bot/run.py) |
 
-**By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22 min from new video to two delivered reels.
+**By the numbers:** 60 min of video → 114 s reel · 5 Meta models · ~$3–4 to watch an hour of video · ~22–23 min from new video to two delivered reels (two measured runs).
 
 ---
 
@@ -97,7 +97,7 @@ Muse Spark 1.2 is used wherever audio matters, because Meta's docs note that aud
 - **Fail soft.** Cover art never blocks delivery.
 - **Tried and parked: a SAM 3.1 follow-cam.** A 9:16 version that pans with the subject (retrying with the agent's own alternatives, e.g. *rocket → exhaust plume → flame* at night) works well on launch footage, but crops off speakers' name cards in briefings — so it's opt-in (`--vertical`) rather than the default.
 - **Honest time.** Mission time (T−/T+) is computed from the detected anchor event, because the model can misread the sign on broadcast clocks.
-- **Measured cost:** about $3–4 to watch an hour of video (600 segments, ~16 min with 8 workers); a few cents for the timeline, matching and each reel; $0.01 per cover; voice notes at $0.18 per hour of audio.
+- **Measured cost:** about $3–4 to watch an hour of video (600 segments, ~16–19 min with 8 workers, across two measured runs); a few cents for the timeline, matching and each reel; $0.01 per cover; voice notes at $0.18 per hour of audio.
 
 ## Run it
 
@@ -187,7 +187,7 @@ Any long video, re-cut for each viewer and delivered where they already are — 
 
 ## Built during the hackathon
 
-All code in this repository was written during the hackathon, from Oct 27, 2026 onwards — the commit history shows what was built and when. The idea grew out of my earlier prototype, [SemanticStream](https://github.com/MNKCrypto/semantic-stream) (semantic search over cricket video); no code from it is reused. Developed with the help of an AI coding assistant.
+All code in this repository was written during the hackathon, from Oct 27, 2026 onwards — the commit history shows what was built and when. The idea grew out of my earlier prototype, [SemanticStream](https://github.com/MNKCrypto/semantic-stream) (semantic search over cricket video); no code from it is reused. Developed with **Claude** (Anthropic) as an AI pair programmer: I designed WatchMate and directed the work; Claude helped write and review the code, tests and demo edit.
 
 ## Credits
 
@@ -196,3 +196,7 @@ Demo footage: **Artemis I Live Launch Coverage**, NASA/Michelle Stone (NASA Imag
 News briefing source: **Artemis Acceleration News Conference** (October 23, 2026), NASA/Ryan Darden (NASA Image and Video Library, ID `KSC-20261023-VP-RTD01-001-ARTEMIS-ACCELERATION-CONFERENCE-PROGRAM-1080-M27955`), trimmed to the opening statements. Used under the same guidelines.
 
 NASA does not endorse this project. Footage is not redistributed in this repository.
+
+## License
+
+Code: [MIT](LICENSE) © 2026 Naveen Kumar. The MIT license covers the code in this repository only, not NASA footage or third-party content.
