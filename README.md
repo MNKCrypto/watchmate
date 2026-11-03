@@ -14,7 +14,7 @@ Tell WatchMate once, in your own words — typed or as a voice note — what you
 
 Built for the **Meta Global AI Developer Hackathon 2026** (Indie track · *Build for Your World*) with Meta's Muse models.
 
-> 🎬 **Demo video (3 min): https://youtu.be/KbSDcl-Ed14** · 🌐 Live page (replay of a real run, no install): **https://mnkcrypto.github.io/watchmate/**
+> 🎬 **Demo video (3 min): https://youtu.be/KbSDcl-Ed14** · 🌐 Live page (replay of a real run, no install): **https://mnkcrypto.github.io/watchmate/** · 🤗 Dataset: **[Naveen1989/watchmate-artemis-examples](https://huggingface.co/datasets/Naveen1989/watchmate-artemis-examples)**
 
 ## For judges
 
@@ -162,7 +162,7 @@ bot/        run.py (Telegram) · onboarding.py · matcher.py · followup.py · p
 control/    server.py · watcher.py · sources.py · static/index.html (Control Room)
 messaging/  telegram.py
 common/     muse.py (API client) · voice.py (Muse Voice Transcribe) · events.py (decision log)
-examples/   real outputs from one end-to-end run: timelines, reels, covers, decision log
+examples/   real outputs from one end-to-end run: timelines, reels, covers, decision log (also on Hugging Face as a dataset)
 docs/       public GitHub Pages site: the two reels + an in-browser replay of the real decision log
 evals/      evaluate.py + cases.json: checks the example reels against each subscriber's rules → RESULTS.md
 tests/      unit tests (pytest), run in CI by .github/workflows/tests.yml
