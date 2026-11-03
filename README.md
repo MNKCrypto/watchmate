@@ -199,4 +199,4 @@ NASA does not endorse this project. Footage is not redistributed in this reposit
 
 ## License
 
-Code: [MIT](LICENSE) © 2026 Naveen Kumar. The MIT license covers the code in this repository only, not NASA footage or third-party content.
+MIT. See [LICENSE](https://github.com/MNKCrypto/watchmate/blob/main/LICENSE). The license covers the code only, not the NASA footage.
